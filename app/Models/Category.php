@@ -9,4 +9,14 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable = ['name','name_en','slug'];
+    public function courses(){
+        return $this->hasManyThrough(
+            'App\Models\Course',
+            'App\Models\CourseCategory',
+            'course_id',
+            'id',
+            'id',
+            'category_id'
+        );
+    }
 }

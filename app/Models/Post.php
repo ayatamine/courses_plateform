@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Comment;
 use App\Traits\FormatsDates;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Post extends Model
 {
     use HasFactory,FormatsDates;
     protected $guarded=[''];
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 }

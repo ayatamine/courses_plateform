@@ -15,7 +15,7 @@ class CreateTestimonialsTable extends Migration
     {
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-            $table->strinig('owner_name');
+            $table->string('owner_name');
             $table->string('image');
             $table->foreignId('project_type')->references('id')->on('project_types');
             $table->text('comment');
