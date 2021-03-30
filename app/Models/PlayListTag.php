@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class PlayListTag extends Model
 {
     use HasFactory;
+    protected $fillable=['playlist_id','tag_id'];
 }

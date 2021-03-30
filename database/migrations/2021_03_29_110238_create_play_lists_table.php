@@ -17,6 +17,7 @@ class CreatePlayListsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('title_en');
+            $table->foreignId('course_id')->references('id')->on('courses');
             $table->timestamps();
         });
     }

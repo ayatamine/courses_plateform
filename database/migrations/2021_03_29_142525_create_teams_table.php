@@ -17,7 +17,7 @@ class CreateTeamsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
-            $table->string('jog_title');
+            $table->string('job_title');
             $table->string('linkedin_account');
             $table->string('facebook_account');
             $table->string('twitter_account');

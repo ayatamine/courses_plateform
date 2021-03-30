@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlayListTagsTable extends Migration
+class CreatePostTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreatePlayListTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('play_list_tags', function (Blueprint $table) {
+        Schema::create('post_tags', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('playlist_id');
+            $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('tag_id');
-            $table->unique(['playlist_id', 'tag_id']);
-            $table->foreign('playlist_id')->references('id')->on('play_lists');
+            $table->unique(['post_id', 'tag_id']);
+            $table->foreign('post_id')->references('id')->on('posts');
             $table->foreign('tag_id')->references('id')->on('tags');
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ class CreatePlayListTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('play_list_tags');
+        Schema::dropIfExists('post_tags');
     }
 }

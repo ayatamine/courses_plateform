@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class PostTag extends Model
 {
     use HasFactory;
-    protected $fillable=['name','name_en','slug','image','description','description_en'];
 }

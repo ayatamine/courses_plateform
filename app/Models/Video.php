@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Traits\FormatsDates;
 class Video extends Model
 {
-    use HasFactory;
+    use HasFactory,FormatsDates;
+    protected $guarded=[''];
 }

@@ -21,8 +21,6 @@ class CreateCoursesTable extends Migration
             $table->text('description');
             $table->text('description_en');
             $table->enum('type',['tutorial','course']);
-            $table->foreignId('category_id')->references('id')->on('categories');
-            $table->foreignId('playlist_id')->references('id')->on('playlists');
             $table->foreignId('author_id')->references('id')->on('users');
             $table->double('price',8,2)->nullable();
             $table->timestamps();
