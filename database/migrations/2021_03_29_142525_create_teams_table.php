@@ -18,10 +18,10 @@ class CreateTeamsTable extends Migration
             $table->string('name');
             $table->string('image');
             $table->string('job_title');
-            $table->string('linkedin_account');
-            $table->string('facebook_account');
-            $table->string('twitter_account');
-            $table->string('github_account');
+            $table->string('linkedin_account')->nullable();
+            $table->string('facebook_account')->nullable();
+            $table->string('twitter_account')->nullable();
+            $table->string('github_account')->nullable();
             $table->timestamps();
         });
     }

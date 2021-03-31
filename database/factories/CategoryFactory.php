@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CategoryFactory extends Factory
@@ -21,8 +22,11 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
+        $name=$this->faker->name;
         return [
-            'title'=>$this->faker->name(),
+            'name'=>' عنوان بالعربية'.rand(0,10),
+            'name_en'=>$name,
+            'slug'=>Str::slug($name)
         ];
     }
 }

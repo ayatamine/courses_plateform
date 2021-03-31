@@ -17,6 +17,7 @@ class CreatePlayListSectionsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('title_en');
+            $table->foreignId('playlist_id')->references('id')->on('play_lists');
             $table->timestamps();
         });
     }

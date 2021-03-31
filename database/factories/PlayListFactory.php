@@ -22,7 +22,9 @@ class PlayListFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name()
+            'title' => 'دورة تعلم لارافال '.rand(0,9),
+            'title_en' => $this->faker->name,
+            'course_id'=>rand(1,2)
         ];
     }
 }

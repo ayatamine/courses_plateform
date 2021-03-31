@@ -22,7 +22,10 @@ class VideoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title'=>'اسم الفيديو بالعربي '.rand(0,10),
+            'title_en'=>$this->faker->name,
+            'duration'=>rand(1,30),
+            'section_id'=>rand(1,5)
         ];
     }
 }

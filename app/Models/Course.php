@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use App\Models\PlayList;
-use App\Traits\FormatsDates;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Course extends Model
 {
-    use HasFactory ,FormatsDates;
+    use HasFactory;
     protected $guarded=[''];
     public function playlists(){
         return $this->hasMany(PlayList::class);

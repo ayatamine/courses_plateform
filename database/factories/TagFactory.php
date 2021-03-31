@@ -22,7 +22,8 @@ class TagFactory extends Factory
     public function definition()
     {
         return [
-            //
+           'title'=>' اسم التاج بالعربيه'.rand(0,10),
+           'title_en'=>$this->faker->text(10),
         ];
     }
 }

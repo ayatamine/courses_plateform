@@ -13,6 +13,6 @@ class PostTagSeeder extends Seeder
      */
     public function run()
     {
-        //
+        
     }
 }

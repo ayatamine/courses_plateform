@@ -22,7 +22,9 @@ class TeamFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name'=>$this->faker->name,
+            'image'=>'avatar2.png',
+            'job_title'=>'developer',
         ];
     }
 }

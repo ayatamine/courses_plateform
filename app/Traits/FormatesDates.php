@@ -1,4 +1,7 @@
-﻿trait FormatsDates
+﻿<?php
+namespace \App\Traits;
+
+trait FormatsDates
 {
     protected $newDateFormat = 'd-m-Y H:i:s';
 
