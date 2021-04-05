@@ -24,13 +24,9 @@ class CommentFactory extends Factory
         return [
             'content'=>$this->faker->text(300),
             'parent_id'=>$this->faker->numberBetween(0,9),
-            'user_id'=>rand(1,10),
-            'video_id'=>rand(1,10),
+            'commentable_id'=>rand(1,10),
+            'commentable_type'=>'App\Models\Video',
             'vote_number'=>rand(0,20)
         ];
-        // $table->foreignId('user_id')->nullable()->references('id')->on('users');
-        // $table->foreignId('video_id')->nullable()->references('id')->on('videos');
-        // $table->foreignId('post_id')->nullable()->references('id')->on('posts');
-        // $table->tinyInteger('vote_number');
     }
 }

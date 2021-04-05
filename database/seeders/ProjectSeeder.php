@@ -18,14 +18,13 @@ class ProjectSeeder extends Seeder
             'title_en'=>'project 1',
             'owner'=>'ayat ahmed amine',
             'thumbnail'=>'b2.jpg',
-            'skills'=>'laravel,vuejs'
         ]);
         \App\Models\Project::create([
             'title'=>'بناء نظام محاسبة',
             'title_en'=>'accountancy system 1',
             'owner'=>'ayat ahmed amine',
             'thumbnail'=>'b3.jpg',
-            'skills'=>'laravel,vuejs,nuxtjs'
         ]);
+     
     }
 }

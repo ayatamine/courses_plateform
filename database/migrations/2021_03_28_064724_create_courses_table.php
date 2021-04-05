@@ -21,12 +21,10 @@ class CreateCoursesTable extends Migration
             $table->string('slug')->unique();
             $table->text('description');
             $table->text('description_en');
-            $table->enum('type',['tutorial','course']);
             $table->foreignId('author_id')->references('id')->on('users');
-            $table->double('price',8,2)->nullable();
+            $table->double('price',8,2)->default(0);
             $table->enum('level',[0,1,2])->default(1);// Beginner Intermediate Expert
-            $table->boolean('course_enrolled')->default(false);//the courses attributes
-            $table->boolean('course_completed')->default(false);//the courses attributes
+            $table->index(['title','title_en']);
             $table->timestamps();
 
         });

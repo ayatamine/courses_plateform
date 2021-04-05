@@ -25,7 +25,6 @@ class CourseSeeder extends Seeder
             'slug'=>Str::slug($titles[0]),
             'description'=>'بعض الوصف الخاص بقائمة التشغيل',
             'description_en'=>'some description of the playlist',
-            'type'=>'tutorial',
             'author_id'=>1,
         ]);
         \App\Models\Course::create([
@@ -36,7 +35,6 @@ class CourseSeeder extends Seeder
             'thumbnail'=>'course-14.jpg',
             'description'=>'بعض الوصف الخاص بقائمة التشغيل',
             'description_en'=>'some description of the playlist',
-            'type'=>'course',
             'author_id'=>1,
         ]);
         \App\Models\Course::create([
@@ -47,7 +45,6 @@ class CourseSeeder extends Seeder
             'slug'=>Str::slug($titles[2]),
             'description'=>'بعض الوصف الخاص بقائمة التشغيل',
             'description_en'=>'some description of the playlist',
-            'type'=>'tutorial',
             'author_id'=>1,
         ]);
     }

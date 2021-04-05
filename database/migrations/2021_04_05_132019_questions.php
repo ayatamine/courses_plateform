@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRepliesTable extends Migration
+class Questions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateRepliesTable extends Migration
      */
     public function up()
     {
-        Schema::create('replies', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('slug');
             $table->text('content');
-            $table->foreignId('user_id')->nullable()->references('id')->on('users');
-            $table->foreignId('video_id')->nullable()->references('id')->on('videos');
-            $table->foreignId('post_id')->nullable()->references('id')->on('posts');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -30,6 +30,7 @@ class CreateRepliesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('replies');
+        Schema::dropIfExists('questions');
+
     }
 }

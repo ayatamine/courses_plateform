@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory ;
-    protected $fillable=['content','user_id','commentable_id','commentable_type','vote_number','parent_id'];
+    protected $fillable=['content','commentable_id','commentable_type','vote_number','parent_id'];
     public function commentable(){
         return $this->morphTo();
     }

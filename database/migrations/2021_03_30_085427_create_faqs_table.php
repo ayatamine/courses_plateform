@@ -20,6 +20,7 @@ class CreateFaqsTable extends Migration
             $table->string('slug')->unique();
             $table->text('answer');
             $table->text('answer_en');
+            $table->index(['question','question_en']);
             $table->timestamps();
         });
     }

@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProjectType extends Model
+class CourseEnrollemnt extends Model
 {
     use HasFactory;
-    protected $fillable=['title','title_en'];
+    protected $fillable=['course_id','user_id','course_completed'];
+
 }

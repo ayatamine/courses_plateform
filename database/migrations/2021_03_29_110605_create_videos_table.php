@@ -18,9 +18,9 @@ class CreateVideosTable extends Migration
             $table->string('title');
             $table->string('title_en');
             $table->tinyInteger('duration');
-            $table->string('url')->nullable();
-            $table->string('youtube_url')->nullable();
+            $table->string('link')->nullable();
             $table->foreignId('section_id')->references('id')->on('play_list_sections');
+            $table->index(['title','title_en']);
             $table->timestamps();
         });
     }

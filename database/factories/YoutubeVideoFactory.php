@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\PostTag;
+use App\Models\YoutubeVideo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PostTagFactory extends Factory
+class YoutubeVideoFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = PostTag::class;
+    protected $model = YoutubeVideo::class;
 
     /**
      * Define the model's default state.

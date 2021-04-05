@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PostTag;
+use App\Models\Response;
 use Illuminate\Http\Request;
 
-class PostTagController extends Controller
+class ResponseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PostTagController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PostTag  $postTag
+     * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function show(PostTag $postTag)
+    public function show(Response $response)
     {
         //
     }
@@ -52,10 +52,10 @@ class PostTagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PostTag  $postTag
+     * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function edit(PostTag $postTag)
+    public function edit(Response $response)
     {
         //
     }
@@ -64,10 +64,10 @@ class PostTagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PostTag  $postTag
+     * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PostTag $postTag)
+    public function update(Request $request, Response $response)
     {
         //
     }
@@ -75,10 +75,10 @@ class PostTagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PostTag  $postTag
+     * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PostTag $postTag)
+    public function destroy(Response $response)
     {
         //
     }

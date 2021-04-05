@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTagsTable extends Migration
+class Skillable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('title_en');
-            $table->index(['title','title_en']);
-            $table->timestamps();
+        Schema::create('skillable', function (Blueprint $table) {
+
+            $table->integer("skill_id");
+            $table->morphs('skillable');
+
         });
     }
 
@@ -29,6 +28,6 @@ class CreateTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('skillable');
     }
 }

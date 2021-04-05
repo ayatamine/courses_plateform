@@ -11,16 +11,9 @@ class Post extends Model
     use HasFactory;
     protected $guarded=[''];
     public function comments(){
-        return $this->hasMany(Comment::class);
+        return $this->morphMany(Comment::class,'commentable');
     }
     public function tags(){
-        return $this->hasManyThrough(
-            'App\Models\Tag',
-            'App\Models\PostTag',
-            'tag_id',
-            'id',
-            'id',
-            'post_id'
-        );
+        return $this->morphToMany(Tag::class,'taggable');
     }
 }

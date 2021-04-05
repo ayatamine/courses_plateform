@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlayListsTable extends Migration
+class Taggable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreatePlayListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('play_lists', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('title_en');
-            $table->foreignId('course_id')->references('id')->on('courses');
-            $table->timestamps();
+        Schema::create('taggable', function (Blueprint $table) {
+
+            $table->integer("tag_id");
+            $table->morphs('taggable');
+
         });
     }
 
@@ -29,6 +28,6 @@ class CreatePlayListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('play_lists');
+        Schema::dropIfExists('taggable');//
     }
 }

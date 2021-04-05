@@ -17,7 +17,7 @@ class CreateTestimonialsTable extends Migration
             $table->id();
             $table->string('owner_name');
             $table->string('image');
-            $table->foreignId('project_type')->references('id')->on('project_types');
+            $table->string('project_type');
             $table->text('comment');
             $table->string('job_itle');
             $table->timestamps();

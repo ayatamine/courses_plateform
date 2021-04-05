@@ -17,9 +17,7 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->text('content');
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreignId('user_id')->nullable()->references('id')->on('users');
-            $table->foreignId('video_id')->nullable()->references('id')->on('videos');
-            $table->foreignId('post_id')->nullable()->references('id')->on('posts');
+            $table->morphs('comment');
             $table->tinyInteger('vote_number');
             $table->timestamps();
         });

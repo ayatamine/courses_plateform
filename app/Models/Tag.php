@@ -2,31 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Post;
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Tag extends Model
 {
     use HasFactory;
     protected $fillable=['title','title_en'];
-    public function posts(){
-        return $this->hasManyThrough(
-            'App\Models\Post',
-            'App\Models\PostTag',
-            'post_id',
-            'id',
-            'id',
-            'tag_id'
-        );
+
+    public function courses(){
+        return $this->morphedByMany(Course::class, 'skillable');
     }
-    public function playlists(){
-        return $this->hasManyThrough(
-            'App\Models\PlayList',
-            'App\Models\PlayListTag',
-            'playlist_id',
-            'id',
-            'id',
-            'tag_id'
-        );
+    public function posts(){
+        return $this->morphedByMany(Post::class, 'skillable');
     }
 }

@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration
             $table->longText('content');
             $table->longText('content_en');
             $table->foreignId('category_id')->references('id')->on('categories');
+            $table->index(['title','title_en']);
             $table->timestamps();
         });
     }

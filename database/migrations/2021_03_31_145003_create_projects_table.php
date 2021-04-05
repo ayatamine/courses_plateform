@@ -19,7 +19,7 @@ class CreateProjectsTable extends Migration
             $table->string('title_en');
             $table->string('owner');
             $table->string('thumbnail');
-            $table->string('skills')->nullable();
+            $table->index(['title','title_en']);
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectTypesTable extends Migration
+class CreateYoutubeVideosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateProjectTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_types', function (Blueprint $table) {
+        Schema::create('youtube_videos', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('title_en');
+            $table->json('video_infos');
+            $table->foreignId('tutorial_id')->references('id')->on('tutorials');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateProjectTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_types');
+        Schema::dropIfExists('youtube_videos');
     }
 }

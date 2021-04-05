@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PlayListTag;
+use App\Models\Tutorial;
 use Illuminate\Http\Request;
 
-class PlayListTagController extends Controller
+class TutorialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PlayListTagController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PlayListTag  $playListTag
+     * @param  \App\Models\Tutorial  $tutorial
      * @return \Illuminate\Http\Response
      */
-    public function show(PlayListTag $playListTag)
+    public function show(Tutorial $tutorial)
     {
         //
     }
@@ -52,10 +52,10 @@ class PlayListTagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PlayListTag  $playListTag
+     * @param  \App\Models\Tutorial  $tutorial
      * @return \Illuminate\Http\Response
      */
-    public function edit(PlayListTag $playListTag)
+    public function edit(Tutorial $tutorial)
     {
         //
     }
@@ -64,10 +64,10 @@ class PlayListTagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PlayListTag  $playListTag
+     * @param  \App\Models\Tutorial  $tutorial
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PlayListTag $playListTag)
+    public function update(Request $request, Tutorial $tutorial)
     {
         //
     }
@@ -75,10 +75,10 @@ class PlayListTagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PlayListTag  $playListTag
+     * @param  \App\Models\Tutorial  $tutorial
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PlayListTag $playListTag)
+    public function destroy(Tutorial $tutorial)
     {
         //
     }

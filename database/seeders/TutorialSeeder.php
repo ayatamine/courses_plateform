@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class PostTagSeeder extends Seeder
+class TutorialSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,6 @@ class PostTagSeeder extends Seeder
      */
     public function run()
     {
-        
+        //
     }
 }
