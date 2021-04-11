@@ -17,7 +17,8 @@ class ResponseSeeder extends Seeder
         Response::create([
             'content'=>'',
             'question_id'=>rand(1,2),
-            'user_id'=>1,
+            'respondent_type'=>'App\Models\Instructor',
+            'respondent_id'=>1,
         ]);
     }
 }

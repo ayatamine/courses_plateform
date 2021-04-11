@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Video;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 
-class VideoController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class VideoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function show(Video $video)
+    public function show(Admin $admin)
     {
         //
     }
@@ -52,10 +52,10 @@ class VideoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function edit(Video $video)
+    public function edit(Admin $admin)
     {
         //
     }
@@ -64,10 +64,10 @@ class VideoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Video $video)
+    public function update(Request $request, Admin $admin)
     {
         //
     }
@@ -75,10 +75,10 @@ class VideoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Video $video)
+    public function destroy(Admin $admin)
     {
         //
     }

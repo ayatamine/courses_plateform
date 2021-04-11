@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Exceptions;
-
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-
+use Exception;
+use App\Exceptions\apiExceptionTrait;
 class Handler extends ExceptionHandler
 {
+    use apiExceptionTrait;
     /**
      * A list of the exception types that are not reported.
      *
@@ -35,7 +36,12 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+
+        });
+        $this->renderable(function (Exception $e, $request) {
+           if($request->expectsJson()){
+               return $this->apiException($request,$e);
+           }
         });
     }
 }

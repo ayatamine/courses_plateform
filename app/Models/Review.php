@@ -17,4 +17,7 @@ class Review extends Model
     public function course(){
         return $this->belongsTo(Course::class);
     }
+    public function getRatedReviewsAttribute($value){
+        return $this->where('value','!=',0)->get();
+    }
 }

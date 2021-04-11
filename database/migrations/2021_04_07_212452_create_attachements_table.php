@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateResponsesTable extends Migration
+class CreateAttachementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateResponsesTable extends Migration
      */
     public function up()
     {
-        Schema::create('responses', function (Blueprint $table) {
+        Schema::create('attachements', function (Blueprint $table) {
             $table->id();
-            $table->text('content');
-            $table->foreignId('question_id')->references('id')->on('questions');
-            $table->integer('respondent_id');
-            $table->string("respondent_type");
+            $table->string('name');
+            $table->string('link');
+            $table->integer('download_number')->default(0);
+            $table->integer('attachable_id');
+            $table->string("attachable_type");
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateResponsesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('responses');
+        Schema::dropIfExists('attachements');
     }
 }

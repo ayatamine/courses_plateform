@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Models\Tag;
+use App\Models\User;
 use App\Models\Skill;
+use App\Models\Review;
 use App\Models\Category;
 use App\Models\PlayList;
 use App\Models\Promotion;
@@ -18,8 +20,8 @@ class Course extends Model
     public function playlists(){
         return $this->hasMany(PlayList::class)->withDefault();
     }
-    public function author(){
-        return $this->belongs(PlayList::class)->withDefault();
+    public function instructor(){
+        return $this->belongsTo(User::class)->withDefault();
     }
     public function categories()
     {
@@ -57,4 +59,13 @@ class Course extends Model
     public function tags(){
         return $this->morphToMany(Tag::class,'taggable');
     }
+    public function reviews(){
+        return $this->hasMany(Review::class);
+    }
+    public function getPreviewMediaAttribute($value){
+         return (count($this->sections) && (count($this->sections[0]->videos)))
+                ? $this->sections[0]->videos[0]->link
+                : $this->thumbnail;
+    }
+    protected $appends = ['preview_media'];
 }

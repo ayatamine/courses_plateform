@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Slider;
+use App\Models\Course;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Course\CourseResource;
+use App\Http\Resources\Course\CourseCollection;
 
-class SliderController extends Controller
+class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,7 @@ class SliderController extends Controller
      */
     public function index()
     {
-        //
+        return  new CourseCollection(Course::paginate(6));
     }
 
     /**
@@ -41,21 +44,21 @@ class SliderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Slider  $slider
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Slider $slider)
+    public function show(Course $course)
     {
-        //
+        return new CourseResource($course);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Slider  $slider
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function edit(Slider $slider)
+    public function edit(Course $course)
     {
         //
     }
@@ -64,10 +67,10 @@ class SliderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Slider  $slider
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Slider $slider)
+    public function update(Request $request, Course $course)
     {
         //
     }
@@ -75,10 +78,10 @@ class SliderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Slider  $slider
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Slider $slider)
+    public function destroy(Course $course)
     {
         //
     }

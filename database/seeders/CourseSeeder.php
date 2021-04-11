@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Course;
+use App\Models\Instructor;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +16,24 @@ class CourseSeeder extends Seeder
      */
     public function run()
     {
+        //create an admin
+        \App\Models\Admin::create([
+            'id'=>1,
+            'first_name'=>'ayat',
+            'last_name'=>'ahmed amine',
+            'bio'=>'Certified web instructor & Developer',
+            'email'=>'amine@admin.com',
+            'password'=>bcrypt('123admin*')
+        ]);
+        //create an instructor
+        \App\Models\Instructor::create([
+            'id'=>1,
+            'first_name'=>'ayat',
+            'last_name'=>'ahmed amine',
+            'bio'=>'Certified web instructor & Developer',
+            'email'=>'amine@amine.com',
+            'password'=>bcrypt('123456789')
+        ]);
         $titles=['learn laravel','learn laravel with vue js','learn laravel with nuxt js'];
 
         \App\Models\Course::create([
@@ -25,7 +44,7 @@ class CourseSeeder extends Seeder
             'slug'=>Str::slug($titles[0]),
             'description'=>'بعض الوصف الخاص بقائمة التشغيل',
             'description_en'=>'some description of the playlist',
-            'author_id'=>1,
+            'instructor_id'=>1,
         ]);
         \App\Models\Course::create([
             'id'=>2,
@@ -35,7 +54,7 @@ class CourseSeeder extends Seeder
             'thumbnail'=>'course-14.jpg',
             'description'=>'بعض الوصف الخاص بقائمة التشغيل',
             'description_en'=>'some description of the playlist',
-            'author_id'=>1,
+            'instructor_id'=>1,
         ]);
         \App\Models\Course::create([
             'id'=>3,
@@ -45,7 +64,7 @@ class CourseSeeder extends Seeder
             'slug'=>Str::slug($titles[2]),
             'description'=>'بعض الوصف الخاص بقائمة التشغيل',
             'description_en'=>'some description of the playlist',
-            'author_id'=>1,
+            'instructor_id'=>1,
         ]);
     }
 }

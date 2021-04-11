@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Response;
+use App\Models\Team;
 use Illuminate\Http\Request;
-
-class ResponseController extends Controller
+use App\Http\Controllers\Controller;
+class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ResponseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Response  $response
+     * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function show(Response $response)
+    public function show(Team $team)
     {
         //
     }
@@ -52,10 +52,10 @@ class ResponseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Response  $response
+     * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function edit(Response $response)
+    public function edit(Team $team)
     {
         //
     }
@@ -64,10 +64,10 @@ class ResponseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Response  $response
+     * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Response $response)
+    public function update(Request $request, Team $team)
     {
         //
     }
@@ -75,10 +75,10 @@ class ResponseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Response  $response
+     * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Response $response)
+    public function destroy(Team $team)
     {
         //
     }

@@ -30,7 +30,9 @@ class PostFactory extends Factory
             'slug'=>Str::slug($title_en),
             'content'=>'بعض المحتوى للبوست هنا بسيب سيب سي ب سيب سي',
             'content_en'=>$this->faker->text(300),
-            'category_id'=>rand(1,9)
+            'category_id'=>rand(1,9),
+            'postable_id'=>1,
+            'postable_type'=>'App\Models\Instructor',
         ];
     }
 }

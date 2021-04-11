@@ -40,12 +40,34 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
+        //guards for generate the token
+        'instructor' => [
+            'driver' => 'session',
+            'provider' => 'instructors',
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        // 'api' => [
+        //     'driver' => 'token',
+        //     'provider' => 'users',
+        //     'hash' => false,
+        // ],
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
+
+        'instructor-api' => [
+            'driver' => 'passport',
+            'provider' => 'instructors',
+        ],
+        'admin-api' => [
+            'driver' => 'passport',
+            'provider' => 'admins',
+        ],
+
     ],
 
     /*
@@ -69,6 +91,14 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'instructors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Instructor::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [

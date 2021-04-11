@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Tutorial;
+use App\Models\Post;
 use Illuminate\Http\Request;
-
-class TutorialController extends Controller
+use App\Http\Controllers\Controller;
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class TutorialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Tutorial  $tutorial
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Tutorial $tutorial)
+    public function show(Post $post)
     {
         //
     }
@@ -52,10 +52,10 @@ class TutorialController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tutorial  $tutorial
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tutorial $tutorial)
+    public function edit(Post $post)
     {
         //
     }
@@ -64,10 +64,10 @@ class TutorialController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tutorial  $tutorial
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tutorial $tutorial)
+    public function update(Request $request, Post $post)
     {
         //
     }
@@ -75,10 +75,10 @@ class TutorialController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tutorial  $tutorial
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tutorial $tutorial)
+    public function destroy(Post $post)
     {
         //
     }

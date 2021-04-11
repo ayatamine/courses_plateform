@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Promotion;
+use App\Models\Response;
 use Illuminate\Http\Request;
-
-class PromotionController extends Controller
+use App\Http\Controllers\Controller;
+class ResponseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PromotionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Promotion  $promotion
+     * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function show(Promotion $promotion)
+    public function show(Response $response)
     {
         //
     }
@@ -52,10 +52,10 @@ class PromotionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Promotion  $promotion
+     * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function edit(Promotion $promotion)
+    public function edit(Response $response)
     {
         //
     }
@@ -64,10 +64,10 @@ class PromotionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Promotion  $promotion
+     * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Promotion $promotion)
+    public function update(Request $request, Response $response)
     {
         //
     }
@@ -75,10 +75,10 @@ class PromotionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Promotion  $promotion
+     * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Promotion $promotion)
+    public function destroy(Response $response)
     {
         //
     }

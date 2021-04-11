@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\NewsLetterList;
+use App\Models\Service;
 use Illuminate\Http\Request;
-
-class NewsLetterListController extends Controller
+use App\Http\Controllers\Controller;
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class NewsLetterListController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\NewsLetterList  $newsLetterList
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function show(NewsLetterList $newsLetterList)
+    public function show(Service $service)
     {
         //
     }
@@ -52,10 +52,10 @@ class NewsLetterListController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\NewsLetterList  $newsLetterList
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function edit(NewsLetterList $newsLetterList)
+    public function edit(Service $service)
     {
         //
     }
@@ -64,10 +64,10 @@ class NewsLetterListController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\NewsLetterList  $newsLetterList
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, NewsLetterList $newsLetterList)
+    public function update(Request $request, Service $service)
     {
         //
     }
@@ -75,10 +75,10 @@ class NewsLetterListController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\NewsLetterList  $newsLetterList
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function destroy(NewsLetterList $newsLetterList)
+    public function destroy(Service $service)
     {
         //
     }

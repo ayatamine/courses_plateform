@@ -16,4 +16,9 @@ class Post extends Model
     public function tags(){
         return $this->morphToMany(Tag::class,'taggable');
     }
+    //the admin or the instructor
+    public function postable()
+    {
+        return $this->morphTo();
+    }
 }
