@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Instructor;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class InstructorController extends Controller
+class SettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class InstructorController extends Controller
      */
     public function index()
     {
-        //
+        return Setting::first();
     }
 
     /**
@@ -35,16 +36,18 @@ class InstructorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $settings = Setting::first();
+        $settings->update(['settings'=>$request->all()]);
+        return response()->json($settings->settings,200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Instructor  $instructor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Instructor $instructor)
+    public function show($id)
     {
         //
     }
@@ -52,10 +55,10 @@ class InstructorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Instructor  $instructor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Instructor $instructor)
+    public function edit($id)
     {
         //
     }
@@ -64,21 +67,23 @@ class InstructorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Instructor  $instructor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Instructor $instructor)
+    public function update(Request $request, $id)
     {
-        //
+        $settings = Setting::first();
+        $settings->update(['settings'=>$request->all()]);
+        return response()->json($settings->settings,200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Instructor  $instructor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Instructor $instructor)
+    public function destroy($id)
     {
         //
     }

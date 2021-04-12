@@ -9,4 +9,7 @@ class Page extends Model
 {
     use HasFactory;
     protected $fillable=['name','slug','content','content_en'];
+    public function getRouteKeyName(){
+        return 'slug';
+    }
 }

@@ -9,6 +9,7 @@ use App\Models\Review;
 use App\Models\Category;
 use App\Models\PlayList;
 use App\Models\Promotion;
+use App\Models\Instructor;
 use App\Models\PlayListSection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,11 +18,14 @@ class Course extends Model
 {
     use HasFactory;
     protected $guarded=[''];
+    public function getRouteKeyName(){
+        return 'slug';
+    }
     public function playlists(){
         return $this->hasMany(PlayList::class)->withDefault();
     }
     public function instructor(){
-        return $this->belongsTo(User::class)->withDefault();
+        return $this->belongsTo(Instructor::class)->withDefault();
     }
     public function categories()
     {

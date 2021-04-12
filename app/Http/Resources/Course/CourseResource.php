@@ -17,6 +17,7 @@ class CourseResource extends JsonResource
         return [
             'title'=>$this->title,
             'title_en'=>$this->title_en,
+            'slug'=>$this->slug,
             'description'=>$this->description,
             'description_en'=>$this->description_en,
             'total_students'=>$this->students->count(),
@@ -25,7 +26,7 @@ class CourseResource extends JsonResource
             : 0,
             'total_reviews'=>$this->reviews->count(),
             'instructor'=>  [
-                'name'=>$this->instructor->name,
+                'name'=>$this->instructor->full_name,
                 'bio'=>$this->instructor->bio,
                 'photo'=>$this->instructor->photo
             ],

@@ -17,10 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 Route::group(['middleware' => ['json.response']], function () {
-    Route::apiResource('/courses','Api\CourseController');
-
+    /* the auth section */
     Route::group(['namespace'=>'Api\Auth','prefix'=>'students'],function(){
         Route::post('login', 'UserController@login');
         Route::post('register','UserController@register');
@@ -39,9 +37,35 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::get('details','AdminController@details');
         Route::get('logout','AdminController@logout');
     });
+    /**
+    * courses api
+    **/
+
     Route::group(['namespace'=>'Api','prefix'=>'courses'],function(){
             Route::get('{course}/reviews','ReviewController@index');
-});
+    });
+    Route::group(['namespace'=>'Api\FrontEnd'],function(){
+        Route::get('/pages/{slug}','PagesController');
+        Route::get('/courses','CourseController@index');
+        Route::get('/courses/{slug}','CourseController@show');
+        Route::get('/site_settings','HomeController@settings');
+        Route::get('/posts','Postcontroller@index');
+        Route::get('/posts/{slug}','Postcontroller@show');
+        Route::get('/posts?limit={$limit}','Postcontroller@index2');
 
+    });
+
+
+    /*
+    ** the admin area
+    */
+    Route::group(['namespace'=>'Api','prefix'=>'admin-cpx','middleware' => ['auth:admin-api']],function(){
+        Route::apiResource('/pages','PageController');
+        Route::apiResource('/site_settings','SettingController');
+        Route::apiResource('/courses','CourseController');
+        Route::group(['prefix'=>'courses'],function(){
+                Route::get('{course}/reviews','ReviewController@index');
+        });
+    });
 
 });
