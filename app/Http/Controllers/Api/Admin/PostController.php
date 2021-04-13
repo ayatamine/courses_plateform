@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\Slider;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-class SliderController extends Controller
+use App\Http\Resources\Posts\PostCollection;
+
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class SliderController extends Controller
      */
     public function index()
     {
-        //
+        return  new PostCollection(Post::latest()->paginate(6));
     }
 
     /**
@@ -41,10 +43,10 @@ class SliderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Slider  $slider
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Slider $slider)
+    public function show(Post $post)
     {
         //
     }
@@ -52,10 +54,10 @@ class SliderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Slider  $slider
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Slider $slider)
+    public function edit(Post $post)
     {
         //
     }
@@ -64,10 +66,10 @@ class SliderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Slider  $slider
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Slider $slider)
+    public function update(Request $request, Post $post)
     {
         //
     }
@@ -75,10 +77,10 @@ class SliderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Slider  $slider
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Slider $slider)
+    public function destroy(Post $post)
     {
         //
     }

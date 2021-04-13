@@ -13,9 +13,10 @@ class Tag extends Model
     protected $fillable=['title','title_en'];
 
     public function courses(){
-        return $this->morphedByMany(Course::class, 'skillable');
+        return $this->morphedByMany(Course::class, 'taggable');
     }
     public function posts(){
-        return $this->morphedByMany(Post::class, 'skillable');
+        return $this->morphedByMany(Post::class, 'taggable');
     }
+    protected $hidden=['created_at','updated_at'];
 }

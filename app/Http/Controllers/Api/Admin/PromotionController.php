@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\Course;
-use App\Models\Review;
+use App\Models\Promotion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ReviewResource;
-
-class ReviewController extends Controller
+class PromotionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Course $course)
+    public function index()
     {
-        return ReviewResource::collection($course->reviews);
+        //
     }
 
     /**
@@ -44,10 +41,10 @@ class ReviewController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Review  $review
+     * @param  \App\Models\Promotion  $promotion
      * @return \Illuminate\Http\Response
      */
-    public function show(Review $review)
+    public function show(Promotion $promotion)
     {
         //
     }
@@ -55,10 +52,10 @@ class ReviewController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Review  $review
+     * @param  \App\Models\Promotion  $promotion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Review $review)
+    public function edit(Promotion $promotion)
     {
         //
     }
@@ -67,10 +64,10 @@ class ReviewController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Review  $review
+     * @param  \App\Models\Promotion  $promotion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Review $review)
+    public function update(Request $request, Promotion $promotion)
     {
         //
     }
@@ -78,10 +75,10 @@ class ReviewController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Review  $review
+     * @param  \App\Models\Promotion  $promotion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Review $review)
+    public function destroy(Promotion $promotion)
     {
         //
     }

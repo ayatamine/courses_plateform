@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\Response;
 use Illuminate\Http\Request;
+use App\Models\NewsLetterList;
 use App\Http\Controllers\Controller;
-class ResponseController extends Controller
+
+class NewsLetterListController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class ResponseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Response  $response
+     * @param  \App\Models\NewsLetterList  $newsLetterList
      * @return \Illuminate\Http\Response
      */
-    public function show(Response $response)
+    public function show(NewsLetterList $newsLetterList)
     {
         //
     }
@@ -52,10 +53,10 @@ class ResponseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Response  $response
+     * @param  \App\Models\NewsLetterList  $newsLetterList
      * @return \Illuminate\Http\Response
      */
-    public function edit(Response $response)
+    public function edit(NewsLetterList $newsLetterList)
     {
         //
     }
@@ -64,10 +65,10 @@ class ResponseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Response  $response
+     * @param  \App\Models\NewsLetterList  $newsLetterList
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Response $response)
+    public function update(Request $request, NewsLetterList $newsLetterList)
     {
         //
     }
@@ -75,10 +76,10 @@ class ResponseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Response  $response
+     * @param  \App\Models\NewsLetterList  $newsLetterList
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Response $response)
+    public function destroy(NewsLetterList $newsLetterList)
     {
         //
     }

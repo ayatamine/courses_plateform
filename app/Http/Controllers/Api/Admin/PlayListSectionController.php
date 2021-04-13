@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\Tutorial;
+use App\Models\PlayListSection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-class TutorialController extends Controller
+class PlayListSectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class TutorialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Tutorial  $tutorial
+     * @param  \App\Models\PlayListSection  $playListSection
      * @return \Illuminate\Http\Response
      */
-    public function show(Tutorial $tutorial)
+    public function show(PlayListSection $playListSection)
     {
         //
     }
@@ -52,10 +52,10 @@ class TutorialController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tutorial  $tutorial
+     * @param  \App\Models\PlayListSection  $playListSection
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tutorial $tutorial)
+    public function edit(PlayListSection $playListSection)
     {
         //
     }
@@ -64,10 +64,10 @@ class TutorialController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tutorial  $tutorial
+     * @param  \App\Models\PlayListSection  $playListSection
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tutorial $tutorial)
+    public function update(Request $request, PlayListSection $playListSection)
     {
         //
     }
@@ -75,10 +75,10 @@ class TutorialController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tutorial  $tutorial
+     * @param  \App\Models\PlayListSection  $playListSection
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tutorial $tutorial)
+    public function destroy(PlayListSection $playListSection)
     {
         //
     }

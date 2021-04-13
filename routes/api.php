@@ -41,17 +41,21 @@ Route::group(['middleware' => ['json.response']], function () {
     * courses api
     **/
 
-    Route::group(['namespace'=>'Api','prefix'=>'courses'],function(){
-            Route::get('{course}/reviews','ReviewController@index');
-    });
+
     Route::group(['namespace'=>'Api\FrontEnd'],function(){
         Route::get('/pages/{slug}','PagesController');
         Route::get('/courses','CourseController@index');
         Route::get('/courses/{slug}','CourseController@show');
+        Route::group(['prefix'=>'courses'],function(){
+            Route::get('{course}/reviews','ReviewController@index');
+        });
         Route::get('/site_settings','HomeController@settings');
         Route::get('/posts','Postcontroller@index');
         Route::get('/posts/{slug}','Postcontroller@show');
-        Route::get('/posts?limit={$limit}','Postcontroller@index2');
+        Route::get('/posts/{slug}/related','Postcontroller@relatedPosts');
+        Route::get('/tags','TagController@index');
+        Route::get('/tags/{id}/posts','TagController@posts');
+        Route::get('/faqs','HomeController@faqs');
 
     });
 
@@ -59,13 +63,13 @@ Route::group(['middleware' => ['json.response']], function () {
     /*
     ** the admin area
     */
-    Route::group(['namespace'=>'Api','prefix'=>'admin-cpx','middleware' => ['auth:admin-api']],function(){
+    Route::group(['namespace'=>'Api\Admin','prefix'=>'admin-cpx','middleware' => ['auth:admin-api']],function(){
         Route::apiResource('/pages','PageController');
         Route::apiResource('/site_settings','SettingController');
         Route::apiResource('/courses','CourseController');
-        Route::group(['prefix'=>'courses'],function(){
-                Route::get('{course}/reviews','ReviewController@index');
-        });
+        Route::post('/courses/{slug}','CourseController@update');
+
+        Route::apiResource('/posts','Postcontroller');
     });
 
 });

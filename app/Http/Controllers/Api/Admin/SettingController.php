@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\Course;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Course\CourseResource;
-use App\Http\Resources\Course\CourseCollection;
 
-class CourseController extends Controller
+class SettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return  new CourseCollection(Course::paginate(6));
+        return Setting::first();
     }
 
     /**
@@ -38,27 +36,29 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $settings = Setting::first();
+        $settings->update(['settings'=>$request->all()]);
+        return response()->json($settings->settings,200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Course  $course
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show($id)
     {
-        return new CourseResource($course);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Course  $course
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit($id)
     {
         //
     }
@@ -67,21 +67,23 @@ class CourseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Course  $course
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, $id)
     {
-        //
+        $settings = Setting::first();
+        $settings->update(['settings'=>$request->all()]);
+        return response()->json($settings->settings,200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Course  $course
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy($id)
     {
         //
     }

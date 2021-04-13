@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\PlayListSection;
+use App\Models\Tutorial;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-class PlayListSectionController extends Controller
+class TutorialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PlayListSectionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PlayListSection  $playListSection
+     * @param  \App\Models\Tutorial  $tutorial
      * @return \Illuminate\Http\Response
      */
-    public function show(PlayListSection $playListSection)
+    public function show(Tutorial $tutorial)
     {
         //
     }
@@ -52,10 +52,10 @@ class PlayListSectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PlayListSection  $playListSection
+     * @param  \App\Models\Tutorial  $tutorial
      * @return \Illuminate\Http\Response
      */
-    public function edit(PlayListSection $playListSection)
+    public function edit(Tutorial $tutorial)
     {
         //
     }
@@ -64,10 +64,10 @@ class PlayListSectionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PlayListSection  $playListSection
+     * @param  \App\Models\Tutorial  $tutorial
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PlayListSection $playListSection)
+    public function update(Request $request, Tutorial $tutorial)
     {
         //
     }
@@ -75,10 +75,10 @@ class PlayListSectionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PlayListSection  $playListSection
+     * @param  \App\Models\Tutorial  $tutorial
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PlayListSection $playListSection)
+    public function destroy(Tutorial $tutorial)
     {
         //
     }
