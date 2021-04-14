@@ -17,6 +17,7 @@ class Taggable extends Migration
 
             $table->integer("tag_id");
             $table->morphs('taggable');
+            $table->unique(['tag_id','taggable_id']);
 
         });
     }

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Models\Tag;
+use App\Models\Skill;
 use App\Models\Course;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,7 +23,10 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return  new CourseCollection(Course::paginate(10));
+        return  Course::with('categories:id,name,name_en')
+                       ->with('skills')
+                       ->with('tags')
+                       ->latest()->paginate(10);
     }
 
     /**
@@ -57,7 +63,46 @@ class CourseController extends Controller
             'price'=>$request->price ?? 0,
             'instructor_id'=>$request->instructor_id
         ]);
-        return new CourseResource($course);
+        $categories = $request->categories;
+        $tags = $request->tags;
+        $skills = $request->skills;
+        if($course){
+          if(!!$request->categories && count($categories))  $this->saveRelation($course,$categories,'category');
+          if(!!$request->tags && count($tags))  $this->saveRelation($course,$tags,'tag');
+          if(!!$request->skills && count($skills))  $this->saveRelation($course,$skills,'skill');
+
+        }
+        return response()->json(
+            $course->load('categories')->load('skills')->load('tags')
+        );
+    }
+    function saveRelation($course,$arr,$entity){
+            switch ($entity) {
+
+                case 'category':
+                    $tutorial->categories()->sync([]);
+                      foreach($arr as $id){
+                        $category = Category::find($id);
+                        $course->categories()->save($category);
+                       }
+                    break;
+                case 'skill':
+                    $tutorial->skills()->sync([]);
+                      foreach($arr as $id){
+                        $skill = Skill::find($id);
+                        $course->skills()->save($skill);
+                       }
+                    break;
+
+                default:
+                    $tutorial->tags()->sync([]);
+                    foreach($arr as $id){
+                        $tag = Tag::find($id);
+                        $course->tags()->save($tag);
+                    }
+                    break;
+            }
+
     }
 
     /**
@@ -109,7 +154,18 @@ class CourseController extends Controller
         $course->price = $request->price ?? 0;
         $course->instructor_id = $request->instructor_id;
         $course->save();
-        return new CourseResource($course);
+        $categories = $request->categories;
+        $tags = $request->tags;
+        $skills = $request->skills;
+        if($course){
+          if(!!$request->categories && count($categories))  $this->saveRelation($course,$categories,'category');
+          if(!!$request->tags && count($tags))  $this->saveRelation($course,$tags,'tag');
+          if(!!$request->skills && count($skills))  $this->saveRelation($course,$skills,'skill');
+
+        }
+        return response()->json(
+            $course->load('categories')->load('skills')->load('tags')
+        );
     }
 
     /**

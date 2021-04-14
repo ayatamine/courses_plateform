@@ -13,10 +13,12 @@ class Skillable extends Migration
      */
     public function up()
     {
-        Schema::create('skillable', function (Blueprint $table) {
+        Schema::create('skillables', function (Blueprint $table) {
 
             $table->integer("skill_id");
             $table->morphs('skillable');
+            $table->unique(['skill_id','skillable_id']);
+
 
         });
     }

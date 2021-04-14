@@ -31,7 +31,8 @@ class CourseResource extends JsonResource
                 'photo'=>$this->instructor->photo
             ],
             'price'=>$this->price,
-            'preview_media'=>$this->preview_media
+            'preview_media'=>$this->preview_media,
+            'categories'=>$this->categories
         ];
     }
 }

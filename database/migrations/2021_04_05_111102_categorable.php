@@ -13,10 +13,11 @@ class Categorable extends Migration
      */
     public function up()
     {
-        Schema::create('categorable', function (Blueprint $table) {
+        Schema::create('categorables', function (Blueprint $table) {
 
             $table->integer("category_id");
             $table->morphs('categorable');
+            $table->unique(['category_id','categorable_id']);
 
         });
     }

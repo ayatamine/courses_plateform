@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\Tag;
+use App\Models\Skill;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-class TagController extends Controller
+
+class SkillController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        return Tag::latest()->paginate(10);
+        return Skill::latest()->paginate(10);
     }
 
     /**
@@ -36,23 +38,22 @@ class TagController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'title'=>'required|string',
-            'title_en'=>'required|string'
+            'name'=>'required|string|unique:skills,id',
         ]);
-        $tag = Tag::create([
-            'title'=>$request->title,
-            'title_en'=>$request->title,
+        $skill = Skill::create([
+            'name'=>$request->name,
+            'slug'=>Str::slug($request->name)
         ]);
-        return response()->json($tag);
+        return response()->json($skill);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Tag  $tag
+     * @param  \App\Models\Skill  $skill
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $tag)
+    public function show(Skill $skill)
     {
         //
     }
@@ -60,10 +61,10 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tag  $tag
+     * @param  \App\Models\Skill  $skill
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tag $tag)
+    public function edit(Skill $skill)
     {
         //
     }
@@ -72,31 +73,30 @@ class TagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tag  $tag
+     * @param  \App\Models\Skill  $skill
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tag $tag)
+    public function update(Request $request, Skill $skill)
     {
 
-        $this->validate($request,[
-            'title'=>'required|string',
-            'title_en'=>'required|string'
+        $validated =$this->validate($request,[
+            'name'=>'required|string|unique:skills,id',
         ]);
-        $tag->title = $request->title;
-        $tag->title_en = $request->title_en;
-        $tag->save();
-        return response()->json($tag);
+        $skill->name = $request->name;
+        $skill->slug = Str::slug($request->name);
+        $skill->save();
+        return response()->json($skill);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tag  $tag
+     * @param  \App\Models\Skill  $skill
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tag $tag)
+    public function destroy(Skill $skill)
     {
-        $tag->delete();
-        return response()->json(['message'=>'the tag deleted successfuly']);
+        $skill->delete();
+        return response()->json(['message'=>'the Skill deleted successfuly']);
     }
 }

@@ -13,6 +13,9 @@ class Skill extends Model
 {
     use HasFactory;
     protected $guarded=[''];
+    public function getRouteKeyName(){
+        return 'slug';
+    }
     public function courses(){
         return $this->morphedByMany(Course::class, 'skillable');
     }

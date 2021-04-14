@@ -49,6 +49,11 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::group(['prefix'=>'courses'],function(){
             Route::get('{course}/reviews','ReviewController@index');
         });
+        Route::get('/categories','CategoryController@index');
+        Route::get('/categories/{slug}/courses','CategoryController@courses');
+        /** */
+        Route::get('/categories/{slug}/tutorials','CategoryController@tutorials');
+        Route::get('/categories/{slug}/questions','CategoryController@questions');
         Route::get('/site_settings','HomeController@settings');
         Route::get('/posts','Postcontroller@index');
         Route::get('/posts/{slug}','Postcontroller@show');
@@ -57,6 +62,9 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::get('/tags/{id}/posts','TagController@posts');
         Route::get('/faqs','HomeController@faqs');
 
+        /** tutorials */
+        Route::get('/tutorials','TutorialController@index');
+        Route::get('/tutorials/{slug}','TutorialController@show');
     });
 
 
@@ -68,8 +76,12 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::apiResource('/site_settings','SettingController');
         Route::apiResource('/courses','CourseController');
         Route::post('/courses/{slug}','CourseController@update');
-
+        Route::apiResource('/tutorials','TutorialController');
+        Route::post('/tutorials/{slug}','TutorialController@update');
         Route::apiResource('/posts','Postcontroller');
+        Route::apiResource('/tags','TagController');
+        Route::apiResource('/categories','CategoryController');
+        Route::apiResource('/skills','SkillController');
     });
 
 });

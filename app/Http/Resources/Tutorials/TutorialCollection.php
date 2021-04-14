@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Course;
+namespace App\Http\Resources\Tutorials;
 
-use App\Http\Resources\Course\PreviewCourse;
+use App\Http\Resources\Tutorials\TutorialResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CourseCollection extends ResourceCollection
+class TutorialCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -16,8 +16,7 @@ class CourseCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data'=>PreviewCourse::collection($this->collection),
-            
+            'data'=>TutorialResource::collection($this->collection)
         ];
     }
 }
