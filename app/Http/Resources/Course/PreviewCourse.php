@@ -21,7 +21,8 @@ class PreviewCourse extends JsonResource
             'description'=>$this->description,
             'description_en'=>$this->description_en,
             'lectures_count'=>$this->sections->count(),
-            'total_duration'=>$this->sections->count(),
+            'total_duration'=>(count($this->sections) > 0 )?
+              date('H:i', mktime(0,$this->videos_duration)) : 0,
             'thumbnail'=>$this->thumbnail
         ];
     }

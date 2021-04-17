@@ -26,4 +26,5 @@ class Tutorial extends Model
     {
         return $this->morphToMany(Category::class, 'categorable');
     }
+    protected $appends = ['videos_duration'];
 }

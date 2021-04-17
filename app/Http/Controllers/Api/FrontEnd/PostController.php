@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers\Api\FrontEnd;
 
+use DB;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Resources\Posts\PostResource;
 use App\Http\Resources\Posts\PostCollection;
-use DB;
+
 class PostController extends Controller
 {
     public function index()
     {
-        if($limit = request()->limit){
-            return  new PostCollection(Post::inRandomOrder()->limit(1)->get());
-        }
-        if($oldest = request()->oldest){
-            return  new PostCollection(Post::oldest()->paginate(6));
-        }
-            return  new PostCollection(Post::latest()->paginate(6));
+        $posts =QueryBuilder::for(Post::class)
+        ->allowedFilters(['title','title_en'])
+        ->allowedIncludes('tags')
+        ->defaultSort('-created_at')
+        ->allowedSorts('created_at')
+        ->paginate(6);
+            return  new PostCollection($posts);
     }
     public function show(Post $slug)
     {
@@ -29,7 +31,7 @@ class PostController extends Controller
     {
         $search =  str_replace('-',' ',$slug);
         $posts = Post::with('postable')
-                ->where('title', 'like', '%'.$search.'%')
+                ->where('title_en', 'like', '%'.$search.'%')
                 ->limit(3)
                 ->get()
                 ->map(function($post){

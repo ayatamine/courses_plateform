@@ -17,4 +17,5 @@ class PlayListSection extends Model
     public function videos(){
         return $this->hasMany(Video::class,'section_id','id');
     }
+    
 }

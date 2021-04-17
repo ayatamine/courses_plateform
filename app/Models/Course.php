@@ -11,7 +11,9 @@ use App\Models\PlayList;
 use App\Models\Promotion;
 use App\Models\Instructor;
 use App\Models\PlayListSection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Course extends Model
@@ -66,10 +68,17 @@ class Course extends Model
     public function reviews(){
         return $this->hasMany(Review::class);
     }
+    public function getVideosDurationAttribute($value)
+    {
+        $section_id = count($this->sections) ? $this->sections[0]->id : 1;
+        return DB::table('videos')
+        ->where('section_id',$section_id)
+        ->sum('duration');
+    }
     public function getPreviewMediaAttribute($value){
          return (count($this->sections) && (count($this->sections[0]->videos)))
                 ? $this->sections[0]->videos[0]->link
                 : $this->thumbnail;
     }
-    protected $appends = ['preview_media'];
+    protected $appends = ['preview_media','videos_duration'];
 }
