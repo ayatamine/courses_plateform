@@ -112,7 +112,9 @@ class TutorialController extends Controller
      */
     public function show(Tutorial $tutorial)
     {
-        return new TutorialResource($tutorial);
+        return $tutorial->load('categories:id,name,name_en')
+        ->load('skills')
+        ->load('tags');
     }
 
     /**

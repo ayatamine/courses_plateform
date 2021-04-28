@@ -20,18 +20,20 @@ class PostController extends Controller
         ->allowedIncludes('tags')
         ->defaultSort('-created_at')
         ->allowedSorts('created_at')
-        ->paginate(6);
+        ->latest()
+        ->paginate(request()->query('limit'));
             return  new PostCollection($posts);
     }
     public function show(Post $slug)
     {
          return new PostResource($slug);
     }
-    public function relatedPosts( $slug)
+    public function relatedPosts(Post $post)
     {
-        $search =  str_replace('-',' ',$slug);
+        $search =  $post->title;
         $posts = Post::with('postable')
                 ->where('title_en', 'like', '%'.$search.'%')
+                ->orWhere('category_id',$post->category_id)
                 ->limit(3)
                 ->get()
                 ->map(function($post){

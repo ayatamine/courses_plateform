@@ -18,11 +18,13 @@ class PreviewPost extends JsonResource
             'title'=>$this->title,
             'title_en'=>$this->title_en,
             'slug'=>$this->slug,
-            'thumbnail'=>$this->thumbnail,
+            'thumbnail'=>asset('storage/posts'.$this->thumbnail),
             'content'=>Str::limit($this->content,100) ,
             'content_en'=>Str::limit($this->content_en,100) ,
             'posted_at'=>Carbon::parse($this->created_at)->locale('fr_FR')->isoFormat('Do MMM YY'),
-            'author'=>$this->postable->full_name
+            'author'=>$this->postable->full_name,
+            'tags'=>$this->tags,
+            'category'=>$this->category
         ];
     }
 }

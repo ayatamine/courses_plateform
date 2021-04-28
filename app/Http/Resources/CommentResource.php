@@ -20,7 +20,8 @@ class CommentResource extends JsonResource
             'parent_id'=>$this->parent_id,
             'user'=>$this->commentable->full_name,
             'date'=>Carbon::parse($this->created_at)->locale('fr_FR')->isoFormat('LL'),
-            'vote_number'=>$this->vote_number
+            'vote_number'=>$this->vote_number,
+            'replies'=>$this->children()
         ];
     }
 }

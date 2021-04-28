@@ -25,6 +25,7 @@ class CreatePostsTable extends Migration
             $table->index(['title','title_en']);
             $table->integer('postable_id');
             $table->string("postable_type");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

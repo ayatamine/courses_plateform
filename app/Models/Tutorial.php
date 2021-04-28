@@ -13,6 +13,9 @@ class Tutorial extends Model
 {
     use HasFactory;
     protected $fillable=['title','title_en','slug','description','description_en','thumbnail'];
+    public function getRouteKeyName(){
+        return 'slug';
+    }
     public function skills(){
         return $this->morphToMany(Skill::class,'skillable');
     }
@@ -26,5 +29,4 @@ class Tutorial extends Model
     {
         return $this->morphToMany(Category::class, 'categorable');
     }
-    protected $appends = ['videos_duration'];
 }

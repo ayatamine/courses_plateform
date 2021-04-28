@@ -51,16 +51,23 @@ Route::group(['middleware' => ['json.response']], function () {
         });
         Route::get('/categories','CategoryController@index');
         Route::get('/categories/{slug}/courses','CategoryController@courses');
-        /** */
         Route::get('/categories/{slug}/tutorials','CategoryController@tutorials');
         Route::get('/categories/{slug}/questions','CategoryController@questions');
+
+
         Route::get('/site_settings','HomeController@settings');
         Route::get('/posts','Postcontroller@index');
         Route::get('/posts/{slug}','Postcontroller@show');
         Route::get('/posts/{slug}/related','Postcontroller@relatedPosts');
+        Route::group(['prefix'=>'posts'],function(){
+            Route::get('{slug}/comments','CommentController@postComments');
+        });
         Route::get('/tags','TagController@index');
         Route::get('/tags/{id}/posts','TagController@posts');
+        Route::get('/tags/{id}/courses','TagController@courses');
+        Route::get('/tags/{id}/tutorials','TagController@tutorials');
         Route::get('/faqs','HomeController@faqs');
+        Route::get('/achivements','HomeController@achivements');
 
         /** tutorials */
         Route::get('/tutorials','TutorialController@index');
@@ -79,6 +86,7 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::apiResource('/tutorials','TutorialController');
         Route::post('/tutorials/{slug}','TutorialController@update');
         Route::apiResource('/posts','Postcontroller');
+        Route::post('/posts/{slug}','Postcontroller@update');
         Route::apiResource('/tags','TagController');
         Route::apiResource('/categories','CategoryController');
         Route::apiResource('/skills','SkillController');

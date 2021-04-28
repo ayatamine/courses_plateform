@@ -6,6 +6,8 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Posts\PostCollection;
+use App\Http\Resources\Course\CourseCollection;
+use App\Http\Resources\Tutorials\TutorialResource;
 
 class TagController extends Controller
 {
@@ -17,7 +19,13 @@ class TagController extends Controller
         return response()->json($posts);
     }
     public function courses($tag_id){
-        $courses = Tag::find($tag_id)->courses;
-        return response()->json(new PostCollection($courses));
+        $courses = Tag::findorfail($tag_id)->courses;
+        return response()->json(new CourseCollection($courses));
+    }
+    public function tutorials($tag_id)
+    {
+        $tutorials = Tag::findorfail
+        ($tag_id)->tutorials;
+        return response()->json(TutorialResource::collection($tutorials));
     }
 }

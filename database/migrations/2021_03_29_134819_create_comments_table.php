@@ -19,6 +19,8 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->morphs('commentable');
             $table->tinyInteger('vote_number');
+            $table->unsignedBiginteger('user_id');
+            $table->enum('user_type',['instructor','admin','user']);
             $table->timestamps();
         });
     }

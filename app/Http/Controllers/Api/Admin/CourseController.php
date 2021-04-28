@@ -80,14 +80,14 @@ class CourseController extends Controller
             switch ($entity) {
 
                 case 'category':
-                    $tutorial->categories()->sync([]);
+                    $course->categories()->sync([]);
                       foreach($arr as $id){
                         $category = Category::find($id);
                         $course->categories()->save($category);
                        }
                     break;
                 case 'skill':
-                    $tutorial->skills()->sync([]);
+                    $course->skills()->sync([]);
                       foreach($arr as $id){
                         $skill = Skill::find($id);
                         $course->skills()->save($skill);
@@ -95,7 +95,7 @@ class CourseController extends Controller
                     break;
 
                 default:
-                    $tutorial->tags()->sync([]);
+                    $course->tags()->sync([]);
                     foreach($arr as $id){
                         $tag = Tag::find($id);
                         $course->tags()->save($tag);
@@ -113,7 +113,9 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        return new CourseResource($course);
+        return $course->load('categories:id,name,name_en')
+                       ->load('skills')
+                       ->load('tags');
     }
 
     /**

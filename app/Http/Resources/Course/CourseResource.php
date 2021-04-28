@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources\Course;
 
+use Carbon\Carbon;
+use App\Http\Resources\ReviewResource;
+use App\Http\Resources\SectionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CourseResource extends JsonResource
@@ -28,11 +31,15 @@ class CourseResource extends JsonResource
             'instructor'=>  [
                 'name'=>$this->instructor->full_name,
                 'bio'=>$this->instructor->bio,
-                'photo'=>$this->instructor->photo
+                'photo'=>asset('storage/profiles/'.$this->instructor->photo)
             ],
             'price'=>$this->price,
-            'preview_media'=>$this->preview_media,
-            'categories'=>$this->categories
+            'preview_media'=>asset('storage/courses/'.$this->thumbnail),
+            'categories'=>$this->categories,
+            'tags'=>$this->tags,
+            'date'=>Carbon::parse($this->created_at)->locale('fr_FR')->isoFormat('Do MMM YY'),
+            'sections'=>SectionResource::collection($this->sections),
+            'reviews'=>ReviewResource::collection($this->reviews)
         ];
     }
 }

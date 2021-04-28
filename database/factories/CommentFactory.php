@@ -25,8 +25,10 @@ class CommentFactory extends Factory
             'content'=>$this->faker->text(300),
             'parent_id'=>$this->faker->numberBetween(0,9),
             'commentable_id'=>rand(1,10),
-            'commentable_type'=>'App\Models\Video',
-            'vote_number'=>rand(0,20)
+            'commentable_type'=>'App\Models\Post',
+            'vote_number'=>rand(0,20),
+            'user_id'=>1,
+            'user_type'=>'user'
         ];
     }
 }

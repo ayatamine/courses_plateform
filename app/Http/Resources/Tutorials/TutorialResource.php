@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Tutorials;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TutorialResource extends JsonResource
@@ -20,7 +21,10 @@ class TutorialResource extends JsonResource
                 'slug'=>$this->slug,
                 'description'=>$this->description,
                 'description_en'=>$this->description_en,
-                'thumbnail'=>$this->thumbnail
+                'thumbnail'=>asset('storage/tutorials/'.$this->thumbnail),
+                'main_category'=>count($this->categories) ? $this->categories[0] : null,
+                'date'=>Carbon::parse($this->created_at)->locale('fr_FR')->isoFormat('Do MMM YY'),
+                'tags'=>$this->tags
             ];
     }
 }

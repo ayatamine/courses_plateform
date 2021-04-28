@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Models\Tag;
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\Posts\PostCollection;
 
 class PostController extends Controller
@@ -16,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return  new PostCollection(Post::latest()->paginate(6));
+        return  Post::with('tags')->with('category')->latest()->paginate(10);
     }
 
     /**
@@ -35,9 +39,40 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $filename ='';
+        if($thumbnail = $request->file('thumbnail')){
+            $extension = $thumbnail->getClientOriginalExtension();
+            $filename  = 'post-thumbnail-' . time() . '.' . $extension;
+            $path      = $thumbnail->storeAs('posts', $filename);
+        }
+        $post = post::create([
+            'title'=>$request->title,
+            'slug'=>Str::slug($request->title_en),
+            'title_en'=>$request->title_en,
+            'content'=>$request->content,
+            'content_en'=>$request->content_en,
+            'thumbnail'=>$filename,
+            'category_id'=>$request->category_id,
+            'postable_type'=>$request->postable_type,
+            'postable_id'=>$request->postable_id,
+        ]);
+        $tags = $request->tags;
+        if($post){
+          if(!!$request->tags && count($tags))  $this->saveRelation($post,$tags,'tag');
+
+        }
+        return response()->json(
+            $post->load('category')->load('tags')
+        );
+    }
+    function saveRelation($post,$tags){
+        $post->tags()->sync([]);
+        foreach($tags as $id){
+          $tag = Tag::find($id);
+          $post->tags()->save($tag);
+        }
     }
 
     /**
@@ -48,7 +83,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return $post->load('category')
+        ->load('tags');
     }
 
     /**
@@ -69,9 +105,33 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, $slug)
     {
-        //
+        $post = Post::whereSlug($slug)->first();
+        $filename =$post->thumbnail;
+        if($thumbnail = $request->file('thumbnail')){
+            Storage::delete('posts/'.$filename);
+            $extension = $thumbnail->getClientOriginalExtension();
+            $filename  = 'post-thumbnail-' . time() . '.' . $extension;
+            $path      = $thumbnail->storeAs('posts', $filename);
+        }
+        $post->title = $request->title;
+        $post->slug = Str::slug($request->title_en);
+        $post->title_en = $request->title_en;
+        $post->content = $request->content;
+        $post->content_en = $request->content_en;
+        $post->thumbnail = $filename;
+        $post->postable_type = $request->postable_type;
+        $post->postable_id= $request->postable_id;
+        $post->category_id= $request->category_id;
+        $post->save();
+        $tags = $request->tags;
+        //save tags
+        if(!!$request->tags && count($tags))  $this->saveRelation($post,$tags,'tag');
+
+        return response()->json(
+            $post->load('category')->load('tags')
+        );
     }
 
     /**
@@ -82,6 +142,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return response()->json('the post deleted successfuly');
     }
 }
