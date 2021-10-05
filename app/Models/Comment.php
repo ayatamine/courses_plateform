@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Admin;
@@ -36,4 +37,8 @@ class Comment extends Model
     public function video(){
         return $this->belongsTo(Video::class)->withDefault();
     }
+    public function getCreatedAtAttribute($value){
+        return Carbon::parse($value)->locale('fr_FR')->isoFormat('LL');
+    }
+    protected $hidden=['updated_at'];
 }

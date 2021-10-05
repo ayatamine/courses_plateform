@@ -23,7 +23,8 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::post('login', 'UserController@login');
         Route::post('register','UserController@register');
         Route::get('details','UserController@details');
-        Route::get('logout','UserController@logout');
+        Route::post('logout','UserController@logout');
+        Route::post('refresh-token', 'UserController@refreshTo')->name('refreshToken');
     });
     Route::group(['namespace'=>'Api\Auth','prefix'=>'instructors'],function(){
         Route::post('login', 'InstructorController@login');
@@ -61,6 +62,7 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::get('/posts/{slug}/related','Postcontroller@relatedPosts');
         Route::group(['prefix'=>'posts'],function(){
             Route::get('{slug}/comments','CommentController@postComments');
+            Route::post('{slug}/comments/new','CommentController@store');
         });
         Route::get('/tags','TagController@index');
         Route::get('/tags/{id}/posts','TagController@posts');
@@ -68,10 +70,14 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::get('/tags/{id}/tutorials','TagController@tutorials');
         Route::get('/faqs','HomeController@faqs');
         Route::get('/achivements','HomeController@achivements');
+        Route::post('/subscribe_to_newslist','NewsLetterController');
 
         /** tutorials */
         Route::get('/tutorials','TutorialController@index');
         Route::get('/tutorials/{slug}','TutorialController@show');
+
+        Route::post('contact_us','HomeController@contact');
+        Route::get('/site_settings','SettingController');
     });
 
 

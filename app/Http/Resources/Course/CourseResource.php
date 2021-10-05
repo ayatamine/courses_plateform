@@ -34,7 +34,7 @@ class CourseResource extends JsonResource
                 'photo'=>asset('storage/profiles/'.$this->instructor->photo)
             ],
             'price'=>$this->price,
-            'preview_media'=>asset('storage/courses/'.$this->thumbnail),
+            'thumbnail'=>asset('storage/courses/'.$this->thumbnail),
             'categories'=>$this->categories,
             'tags'=>$this->tags,
             'date'=>Carbon::parse($this->created_at)->locale('fr_FR')->isoFormat('Do MMM YY'),

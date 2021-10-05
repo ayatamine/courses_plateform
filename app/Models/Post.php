@@ -16,11 +16,14 @@ class Post extends Model
     public function getRouteKeyName(){
         return 'slug';
     }
-    public function comments(){
+    public function root_comments(){
         return $this->morphMany(Comment::class,'commentable')
-        ->with('user:id,first_name,last_name')
+        ->with('user:id,first_name,last_name,photo')
         ->with('children')
         ->where('parent_id',null);
+    }
+    public function comments(){
+        return $this->morphMany(Comment::class,'commentable');
     }
     public function tags(){
         return $this->morphToMany(Tag::class,'taggable');

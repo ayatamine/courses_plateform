@@ -29,5 +29,9 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'passport' => [
+        'password_client_id' => env('PASSWORD_CLIENT_ID'),
+        'password_client_secret' => env('PASSWORD_CLIENT_SECRET'),
+    ],
 
 ];

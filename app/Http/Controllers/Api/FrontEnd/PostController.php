@@ -15,14 +15,17 @@ class PostController extends Controller
 {
     public function index()
     {
+
         $posts =QueryBuilder::for(Post::class)
         ->allowedFilters(['title','title_en'])
         ->allowedIncludes('tags')
         ->defaultSort('-created_at')
         ->allowedSorts('created_at')
-        ->latest()
-        ->paginate(request()->query('limit'));
-            return  new PostCollection($posts);
+        ->latest();
+        if($limit = request()->query('limit')){
+            return  new PostCollection($posts->paginate($limit));
+        }
+        return  new PostCollection($posts->paginate(6));
     }
     public function show(Post $slug)
     {

@@ -5,14 +5,20 @@ namespace App\Http\Controllers\Api\FrontEnd;
 use App\Models\Faq;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Contact;
 use App\Models\Setting;
 use App\Models\Tutorial;
+use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\SettingResource;
 
 class HomeController extends Controller
 {
+    public function __construct(){
+        $this->middleware('guest:api');
+    }
     public function settings(){
         return  new SettingResource(Setting::first());
     }
@@ -27,5 +33,33 @@ class HomeController extends Controller
                 'total_posts'=>Post::count()
             ]
         );
+    }
+    public function contact(Request $request){
+
+          $this->validate($request,[
+             'first_name'=>'required|string|max:20',
+             'last_name'=>'required|string|max:20',
+             'message'=>'required|string|min:60',
+             'phone'=>'regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:14',
+             'email'=>'required|email'
+          ]);
+          $contact = Contact::create([
+              'first_name'=>$request->first_name,
+              'last_name'=>$request->last_name,
+              'message'=>$request->message,
+              'phone'=>$request->phone,
+              'email'=>$request->email,
+          ]);
+          try {
+              $contact_email = Setting::first();
+            Mail::to($contact_email->settings->contact_email)
+            ->send(new ContactMail($contact));
+            } catch (\Exception $e) {
+                return response()->json('there is an error,please try later',500);
+            }
+           return response()->json(
+               [
+                   'message'=>'thanks for contacting us, we will reply to you soon.'
+               ],200);
     }
 }

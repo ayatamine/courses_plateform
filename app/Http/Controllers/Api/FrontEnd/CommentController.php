@@ -18,7 +18,7 @@ class CommentController extends Controller
         //
     }
     public function postComments(Post $post){
-          return $post->first()->comments;
+          return $post->first()->root_comments;
     }
     /**
      * Show the form for creating a new resource.
@@ -38,7 +38,15 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
+        $this->validate($request,[
+            'content' =>'string|required|min:3',
+            'commentable_type'=>'string|required',
+            'commentable_id'=>'integer|required',
+            'parent_id'=>'required',
+            'user_type'=>'required|string',
+        ]);
+        //user_id vote_number commentable_id
     }
 
     /**

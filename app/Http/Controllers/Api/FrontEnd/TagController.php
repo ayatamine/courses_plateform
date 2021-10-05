@@ -15,8 +15,8 @@ class TagController extends Controller
         return Tag::all();
     }
     public function posts($tag_id){
-        $posts = Tag::with('posts')->find($tag_id);
-        return response()->json($posts);
+        $data = Tag::with('posts')->find($tag_id);
+        return response()->json(new PostCollection($data->posts));
     }
     public function courses($tag_id){
         $courses = Tag::findorfail($tag_id)->courses;

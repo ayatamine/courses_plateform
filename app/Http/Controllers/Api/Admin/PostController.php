@@ -41,6 +41,7 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
+
         $filename ='';
         if($thumbnail = $request->file('thumbnail')){
             $extension = $thumbnail->getClientOriginalExtension();

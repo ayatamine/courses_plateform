@@ -24,7 +24,7 @@ class PreviewCourse extends JsonResource
             'lectures_count'=>$this->sections->count(),
             'total_duration'=>(count($this->sections) > 0 )?
               date('H:i', mktime(0,$this->videos_duration)) : 0,
-            'thumbnail'=>$this->thumbnail,
+            'thumbnail'=>asset('storage/courses/'.$this->thumbnail),
             'main_category'=>count($this->categories) ? $this->categories[0] : null,
             'date'=>Carbon::parse($this->created_at)->locale('fr_FR')->isoFormat('Do MMM YY'),
         ];
