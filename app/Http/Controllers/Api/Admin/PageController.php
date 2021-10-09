@@ -42,15 +42,19 @@ class PageController extends Controller
     {
         $this->validate($request,[
             'name'=>'required|string',
+            'name_en'=>'required|string',
             'content'=>'required',
             'content_en'=>'required',
         ]);
         $page =Page::create([
             'name'=>$request->name,
-            'slug'=>Str::slug($request->name),
+            'name_en'=>$request->name_en,
+            'slug'=>Str::slug($request->name_en),
             'content'=>$request->content,
             'content_en'=>$request->content_en
         ]);
+        $page->name_en = $request->name_en;
+        $page->save();
         return response()->json($page,200);
     }
 
@@ -60,9 +64,9 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Page $page)
     {
-        return response()->json(Page::findorfail($slug),200);
+        return response()->json($page,200);
     }
 
     /**
@@ -83,16 +87,19 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request,Page $page)
     {
+
         $this->validate($request,[
             'content'=>'required',
             'content_en'=>'required',
         ]);
-        $page =Page::findorfail($slug);
-        // $page->content = $request->content;
-        // $page->content_en =$request->content_en;
-        $page->update($request->only(['conent','content_en']));
+         $page->name = $request->name;
+         $page->name_en =$request->name_en;
+         $page->content =$request->content;
+         $page->content_en =$request->content_en;
+         $page->slug =Str::slug($request->name_en);
+        $page->save();
         return response()->json($page,200);
     }
 
@@ -102,8 +109,10 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Page $page)
     {
-        //
+
+        $page->delete();
+        return response()->json(['message'=>'the page deleted successfuly']);
     }
 }

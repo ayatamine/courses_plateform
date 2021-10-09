@@ -84,7 +84,8 @@ Route::group(['middleware' => ['json.response']], function () {
     /*
     ** the admin area
     */
-    Route::group(['namespace'=>'Api\Admin','prefix'=>'admin-cpx','middleware' => ['auth:admin-api']],function(){
+//    Route::group(['namespace'=>'Api\Admin','prefix'=>'admin-cpx','middleware' => ['auth:admin-api']],function(){
+    Route::group(['namespace'=>'Api\Admin','prefix'=>'admin-cpx'],function(){
         Route::apiResource('/pages','PageController');
         Route::apiResource('/site_settings','SettingController');
         Route::apiResource('/courses','CourseController');

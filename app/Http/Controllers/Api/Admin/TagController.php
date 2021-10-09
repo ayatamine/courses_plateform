@@ -41,7 +41,7 @@ class TagController extends Controller
         ]);
         $tag = Tag::create([
             'title'=>$request->title,
-            'title_en'=>$request->title,
+            'title_en'=>$request->title_en,
         ]);
         return response()->json($tag);
     }

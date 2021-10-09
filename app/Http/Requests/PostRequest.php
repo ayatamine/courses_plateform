@@ -28,7 +28,7 @@ class PostRequest extends FormRequest
             'title_en'=>'required|string|max:300|unique:posts,id',
             'content'=>'required|string|min:100',
             'content_en'=>'required|string|min:100',
-            'thumbnail'=>'required|file|image|mimes:jpeg,png,gif,webp|max:2048',
+            'thumbnail'=>'sometimes|required|file|image|mimes:jpeg,png,gif,webp|max:2048',
             'postable_type'=>'required|string',
             'postable_id'=>'required|integer',
             'category_id'=>'integer',

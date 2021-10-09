@@ -84,7 +84,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return $post->load('category')
+        $post->thumbnail = asset('storage/posts/'.$post->thumbnail);
+
+        return    $post->load('category')
         ->load('tags');
     }
 
@@ -117,7 +119,7 @@ class PostController extends Controller
             $path      = $thumbnail->storeAs('posts', $filename);
         }
         $post->title = $request->title;
-        $post->slug = Str::slug($request->title_en);
+        if($post->title_en != $request->title_en){ $post->slug = Str::slug($request->title_en) ;} ;
         $post->title_en = $request->title_en;
         $post->content = $request->content;
         $post->content_en = $request->content_en;
