@@ -10,10 +10,15 @@ class Setting extends Model
     use HasFactory;
     protected $fillable=['settings'];
     protected $hidden=['created_at'];
+    protected $appends=['logo'];
     public function getUpdatedAtAttribute($value){
           return Carbon::parse($value)->locale('fr_FR')->isoFormat('LL');
     }
     public function getSettingsAttribute($value){
         return json_decode($value);
+    }
+    public function getLogoAttribute(){
+        $settings = $this->settings;
+        return asset('storage/settings/'.$settings->logo);
     }
 }

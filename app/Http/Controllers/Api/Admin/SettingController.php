@@ -70,10 +70,20 @@ class SettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $requestData = $request->all();
         $settings = Setting::first();
-        $settings->update(['settings'=>$request->all()]);
+        $filename ='';
+        if($logo = $request->file('logo')){
+            $extension = $logo->getClientOriginalExtension();
+            $filename  = 'logo-' . time() . '.' . $extension;
+            $path      = $logo->storeAs('settings', $filename);
+            $requestData['logo'] = $filename;
+        }
+
+
+        $settings->update(['settings'=>json_encode($requestData)]);
         return response()->json($settings->settings,200);
     }
 

@@ -87,7 +87,8 @@ Route::group(['middleware' => ['json.response']], function () {
 //    Route::group(['namespace'=>'Api\Admin','prefix'=>'admin-cpx','middleware' => ['auth:admin-api']],function(){
     Route::group(['namespace'=>'Api\Admin','prefix'=>'admin-cpx'],function(){
         Route::apiResource('/pages','PageController');
-        Route::apiResource('/site_settings','SettingController');
+        Route::get('/site_settings','SettingController@index');
+        Route::post('/update_site_settings','SettingController@update');
         Route::apiResource('/courses','CourseController');
         Route::post('/courses/{slug}','CourseController@update');
         Route::apiResource('/tutorials','TutorialController');
@@ -97,6 +98,7 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::apiResource('/tags','TagController');
         Route::apiResource('/categories','CategoryController');
         Route::apiResource('/skills','SkillController');
+        Route::apiResource('/faqs','FaqController');
     });
 
 });
