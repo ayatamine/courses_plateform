@@ -58,6 +58,7 @@ class PostController extends Controller
             'category_id'=>$request->category_id,
             'postable_type'=>$request->postable_type,
             'postable_id'=>$request->postable_id,
+            'keywords'=>$request->keywords
         ]);
         $tags = $request->tags;
         if($post){
@@ -127,6 +128,7 @@ class PostController extends Controller
         $post->postable_type = $request->postable_type;
         $post->postable_id= $request->postable_id;
         $post->category_id= $request->category_id;
+        $post->keywords= $request->keywords;
         $post->save();
         $tags = $request->tags;
         //save tags

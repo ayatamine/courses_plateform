@@ -32,6 +32,7 @@ class PostRequest extends FormRequest
             'postable_type'=>'required|string',
             'postable_id'=>'required|integer',
             'category_id'=>'integer',
+            'keywords'=>'required|string',
         ];
     }
 }
