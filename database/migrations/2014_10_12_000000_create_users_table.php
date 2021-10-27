@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('country')->default('dz');
             $table->mediumText('bio')->nullable();
             $table->string('photo')->default('profile.png');
-            $table->json('social_links')->nullable();
+            $table->text('social_links')->nullable();
             $table->string('email_verification_code')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

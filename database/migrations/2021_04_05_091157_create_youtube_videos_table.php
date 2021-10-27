@@ -15,7 +15,7 @@ class CreateYoutubeVideosTable extends Migration
     {
         Schema::create('youtube_videos', function (Blueprint $table) {
             $table->id();
-            $table->json('video_infos');
+            $table->text('video_infos');
             $table->foreignId('tutorial_id')->references('id')->on('tutorials');
             $table->timestamps();
         });

@@ -10,7 +10,7 @@ use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\Posts\PostCollection;
-
+use Image;
 class PostController extends Controller
 {
     /**
@@ -43,10 +43,22 @@ class PostController extends Controller
     {
 
         $filename ='';
-        if($thumbnail = $request->file('thumbnail')){
-            $extension = $thumbnail->getClientOriginalExtension();
+        if($image = $request->file('thumbnail')){
+            $extension = $image->getClientOriginalExtension();
             $filename  = 'post-thumbnail-' . time() . '.' . $extension;
-            $path      = $thumbnail->storeAs('posts', $filename);
+            $imgFile = Image::make($image->getRealPath());
+            $imgFile->backup();
+            $thubmnail = $imgFile->resize(270, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->encode();
+            Storage::put('/posts/thumbnails/'.$filename,$thubmnail);
+            $imgFile->reset();
+            $postImage = $imgFile->resize(790,null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->encode();
+            Storage::put('posts/'.$filename,$postImage);
+//            $path      = $thumbnail->storeAs('posts', $filename);
+
         }
         $post = post::create([
             'title'=>$request->title,
