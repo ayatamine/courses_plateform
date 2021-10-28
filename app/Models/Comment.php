@@ -10,10 +10,9 @@ use App\Models\Video;
 use App\Models\Instructor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
- use App\Traits\Selfref;
 class Comment extends Model
 {
-    use HasFactory ,Selfref;
+    use HasFactory ;
     protected $fillable=['content','commentable_id','commentable_type',
     'vote_number','parent_id','user_type','user_id'];
     public function commentable(){
