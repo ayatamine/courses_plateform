@@ -58,9 +58,9 @@ Route::group(['middleware' => ['json.response']], function () {
 
 
         Route::get('/site_settings','HomeController@settings');
-        Route::get('/posts','Postcontroller@index');
-        Route::get('/posts/{slug}','Postcontroller@show');
-        Route::get('/posts/{slug}/related','Postcontroller@relatedPosts');
+        Route::get('/posts','PostController@index');
+        Route::get('/posts/{slug}','PostController@show');
+        Route::get('/posts/{slug}/related','PostController@relatedPosts');
         Route::group(['prefix'=>'posts'],function(){
             Route::get('{slug}/comments','CommentController@postComments');
             Route::post('{slug}/comments/new','CommentController@store');
