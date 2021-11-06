@@ -94,8 +94,8 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::post('/courses/{slug}','CourseController@update');
         Route::apiResource('/tutorials','TutorialController');
         Route::post('/tutorials/{slug}','TutorialController@update');
-        Route::apiResource('/posts','Postcontroller');
-        Route::post('/posts/{slug}','Postcontroller@update');
+        Route::apiResource('/posts','PostController');
+        Route::post('/posts/{slug}','PostController@update');
         Route::apiResource('/tags','TagController');
         Route::apiResource('/categories','CategoryController');
         Route::apiResource('/skills','SkillController');
