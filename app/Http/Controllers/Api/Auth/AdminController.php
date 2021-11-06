@@ -11,9 +11,9 @@ use App\Utilities\ProxyRequest;
 class AdminController extends Controller
 {
     public $proxy;
-    public function __construct(ProxyRequest  $proxy){
+    public function __construct(){
         $this->middleware(['auth:admin-api'])->except(['login','register','refreshTo']);
-        $this->proxy = $proxy;
+        $this->proxy = new ProxyRequest('admins');
     }
     public function register(Request $request)
     {
@@ -53,13 +53,12 @@ class AdminController extends Controller
             'password' => 'required|min:6',
         ]);
         if(Auth::guard('admin')->attempt(['email' => request('email'), 'password' => request('password')])){
-            $admin = auth('admin')->user();
-
-           $token =  $admin->createToken('ayatacademy');
+            $resp = $this->proxy
+                ->grantPasswordToken(request('email'), request('password'));
 
             return response([
-                'token' => $token->accessToken,
-                'expiresIn' => $token->token->expires_at->diffInSeconds(Carbon::now()),
+                'token' => $resp->access_token,
+                'expiresIn' => $resp->expires_in,
                 'message' => 'You have been logged in',
             ], 200);
         }
@@ -72,13 +71,14 @@ class AdminController extends Controller
         return response()->json(['Admin' => Auth::guard('admin-api')->user()], 200);
 
     }
-    public function logout () {
+    public function logout() {
         if(Auth::guard('admin-api')->user()){
             $token = Auth::guard('admin-api')->user()->token();
             $token->revoke();
 
             $response = 'You have been succesfully logged out!';
             return response($response, 200);
+
         }
         return response()->json(['error'=>'Unauthorised'], 401);
 
@@ -87,32 +87,15 @@ class AdminController extends Controller
     public function refreshTo(Request $request)
     {
 
-        $params =[
-            'grant_type' => 'password',
-            'client_id' => config('services.passport.password_client_id'),
-            'client_secret' => config('services.passport.password_client_secret'),
-            'scope' => 'admin',
-            'username' => $request->email,
-            'password' => $request->password,
-        ];
-        $proxy = \Request::create('oauth/token', 'post', $params);
-        $resp = json_decode(app()->handle($proxy)->getContent());
+        $resp = $this->proxy->refreshAccessToken();
 
-        $this->setHttpOnlyCookie($resp->refresh_token);
-
-        return $resp;
+        return response([
+            'token' => $resp->access_token,
+            'expiresIn' => $resp->expires_in,
+            'user'=>auth('admin-api')->user(),
+            'message' => 'Token has been refreshed.',
+        ], 200);
 
     }
-    protected function setHttpOnlyCookie(string $refreshToken)
-    {
-        cookie()->queue(
-            'refresh_token',
-            $refreshToken,
-            14400, // 10 days
-            null,
-            null,
-            false,
-            true // httponly
-        );
-    }
+
 }

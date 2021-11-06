@@ -6,6 +6,11 @@ namespace App\Utilities;
 
 class ProxyRequest
 {
+    protected $access_type;
+    public function __construct($access_type)
+    {
+        $this->access_type = $access_type;
+    }
     public function grantPasswordToken(string $email, string $password)
     {
         $params = [
@@ -33,9 +38,16 @@ class ProxyRequest
 
     protected function makePostRequest(array $params)
     {
+        $client_id =  config('services.passport.password_client_id');
+        $client_secret = config('services.passport.password_client_secret');
+
+        if($this->access_type == 'admins'){
+            $client_id =  env('PCLIENT_ID');
+            $client_secret = env('PClient_secret');
+        }
         $params = array_merge([
-            'client_id' => config('services.passport.password_client_id'),
-            'client_secret' => config('services.passport.password_client_secret'),
+            'client_id' => $client_id,
+            'client_secret' => $client_secret,
             'scope' => '*',
         ], $params);
 

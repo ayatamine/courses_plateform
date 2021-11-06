@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Page extends Model
 {
     use HasFactory;
-    protected $fillable=['name','slug','content','content_en'];
+    protected $fillable=['name','name_en','slug','content','content_en'];
     public function getRouteKeyName(){
         return 'slug';
     }

@@ -53,7 +53,6 @@ class PageController extends Controller
             'content'=>$request->content,
             'content_en'=>$request->content_en
         ]);
-        $page->name_en = $request->name_en;
         $page->save();
         return response()->json($page,200);
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Models\User;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -11,9 +12,9 @@ use App\Utilities\ProxyRequest;
 class UserController extends Controller
 {
     protected $proxy;
-    public function __construct(ProxyRequest $proxy)
+    public function __construct()
     {
-        $this->proxy = $proxy;
+        $this->proxy = new ProxyRequest('user');
     }
     public function register(Request $request)
     {
@@ -96,6 +97,7 @@ class UserController extends Controller
         return response([
             'token' => $resp->access_token,
             'expiresIn' => $resp->expires_in,
+            'user'=>auth('api')->user(),
             'message' => 'Token has been refreshed.',
         ], 200);
     }

@@ -36,7 +36,7 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::post('login', 'AdminController@login');
         Route::post('register','AdminController@register');
         Route::get('details','AdminController@details');
-        Route::get('logout','AdminController@logout');
+        Route::post('logout','AdminController@logout');
         Route::post('refresh-token', 'AdminController@refreshTo')->name('refreshToken');
     });
     /**
