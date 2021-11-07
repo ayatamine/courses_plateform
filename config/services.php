@@ -32,6 +32,9 @@ return [
     'passport' => [
         'password_client_id' => env('PASSWORD_CLIENT_ID'),
         'password_client_secret' => env('PASSWORD_CLIENT_SECRET'),
+        'admin_password_client_id' => env('P_ADMIN_CLIENT_ID'),
+        'admin_password_client_secret' => env('P_ADMIN_CLIENT_SECRET'),
     ],
+
 
 ];

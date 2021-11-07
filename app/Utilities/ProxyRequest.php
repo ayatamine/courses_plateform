@@ -42,8 +42,8 @@ class ProxyRequest
         $client_secret = config('services.passport.password_client_secret');
 
         if($this->access_type == 'admins'){
-            $client_id =  env('PCLIENT_ID');
-            $client_secret = env('PClient_secret');
+            $client_id =   config('services.passport.admin_password_client_id');
+            $client_secret =  config('services.passport.admin_password_client_id');
         }
         $params = array_merge([
             'client_id' => $client_id,
