@@ -38,12 +38,14 @@ class ProxyRequest
 
     protected function makePostRequest(array $params)
     {
-        $client_id =  config('services.passport.password_client_id');
-        $client_secret = config('services.passport.password_client_secret');
+        $client_id ='';$client_secret='';
 
         if($this->access_type == 'admins'){
             $client_id =   config('services.passport.admin_password_client_id');
             $client_secret =  config('services.passport.admin_password_client_id');
+        }else{
+            $client_id =  config('services.passport.password_client_id');
+            $client_secret = config('services.passport.password_client_secret');
         }
         $params = array_merge([
             'client_id' => $client_id,
