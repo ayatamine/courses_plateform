@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return  Post::with('tags')->with('category')->latest()->paginate(10);
+        return  Post::with('tags')->with('category')->latest()->get();
     }
 
     /**

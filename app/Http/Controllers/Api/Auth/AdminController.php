@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Utilities\ProxyRequest;
 class AdminController extends Controller
 {
-    public $proxy;
+    protected $proxy;
     public function __construct(){
         $this->middleware(['auth:admin-api'])->except(['login','register','refreshTo']);
         $this->proxy = new ProxyRequest('admins');
@@ -53,12 +53,13 @@ class AdminController extends Controller
             'password' => 'required|min:6',
         ]);
         if(Auth::guard('admin')->attempt(['email' => request('email'), 'password' => request('password')])){
-            $resp = $this->proxy
-                ->grantPasswordToken(request('email'), request('password'));
-
+//            $resp = $this->proxy
+//                ->grantPasswordToken(request('email'), request('password'));
+            $admin = auth('admin')->user();
+            $resp =  $admin->createToken('ayatacademy');
             return response([
-                'token' => $resp->access_token,
-                'expiresIn' => $resp->expires_in,
+                'token' => $resp->accessToken,
+                'expiresIn' =>  $resp->token->expires_at->diffInSeconds(Carbon::now()),
                 'message' => 'You have been logged in',
             ], 200);
         }
