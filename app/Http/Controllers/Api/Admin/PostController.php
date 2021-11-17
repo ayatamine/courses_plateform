@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Resources\Posts\PostCollection;
 use Image;
 class PostController extends Controller
 {
@@ -125,11 +124,24 @@ class PostController extends Controller
     {
         $post = Post::whereSlug($slug)->first();
         $filename =$post->thumbnail;
-        if($thumbnail = $request->file('thumbnail')){
+        if($image = $request->file('thumbnail')){
             Storage::delete('posts/'.$filename);
-            $extension = $thumbnail->getClientOriginalExtension();
+            Storage::delete('posts/thumbnails/'.$filename);
+            $extension = $image->getClientOriginalExtension();
             $filename  = 'post-thumbnail-' . time() . '.' . $extension;
-            $path      = $thumbnail->storeAs('posts', $filename);
+            $imgFile = Image::make($image->getRealPath());
+            $imgFile->backup();
+            $thubmnail = $imgFile->resize(270, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->encode();
+            Storage::put('/posts/thumbnails/'.$filename,$thubmnail);
+            $imgFile->reset();
+            $postImage = $imgFile->resize(790,null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->encode();
+            Storage::put('posts/'.$filename,$postImage);
+//            $path      = $thumbnail->storeAs('posts', $filename);
+
         }
         $post->title = $request->title;
         if($post->title_en != $request->title_en){ $post->slug = Str::slug($request->title_en) ;} ;

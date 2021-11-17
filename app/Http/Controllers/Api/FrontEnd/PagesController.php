@@ -18,6 +18,7 @@ class PagesController extends Controller
     {
         return response()->json([
             'name'=>$slug->name,
+            'name_en'=>$slug->name_en,
             'slug'=>$slug->slug,
             'content'=>$slug->content,
             'content_en'=>$slug->content_en,

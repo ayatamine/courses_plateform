@@ -11,9 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TutorialRequest;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Resources\Tutorials\TutorialResource;
-use App\Http\Resources\Tutorials\TutorialCollection;
-
+use Image;
 class TutorialController extends Controller
 {
     /**
@@ -47,11 +45,17 @@ class TutorialController extends Controller
      */
     public function store(TutorialRequest $request)
     {
+
         $filename ='';
-        if($thumbnail = $request->file('thumbnail')){
-            $extension = $thumbnail->getClientOriginalExtension();
-            $filename  = 'tutorial-thumbnail-' . time() . '.' . $extension;
-            $path      = $thumbnail->storeAs('tutorials', $filename);
+        if($image = $request->file('thumbnail')){
+            $extension = $image->getClientOriginalExtension();
+            $filename  = 'tuto-thumbnail-' . time() . '.' . $extension;
+            $imgFile = Image::make($image->getRealPath());
+            $imgFile->backup();
+            $thubmnail = $imgFile->resize(270, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->encode();
+            Storage::put('/tutorials/thumbnails/'.$filename,$thubmnail);
         }
         $tutorial = Tutorial::create([
             'title'=>$request->title,
@@ -140,11 +144,18 @@ class TutorialController extends Controller
 
         $tutorial = Tutorial::whereSlug($slug)->first();
         $filename =$tutorial->thumbnail;
-        if($thumbnail = $request->file('thumbnail')){
+
+        if($image = $request->file('thumbnail')){
             Storage::delete('tutorials/'.$filename);
-            $extension = $thumbnail->getClientOriginalExtension();
-            $filename  = 'tutorial-thumbnail-' . time() . '.' . $extension;
-            $path      = $thumbnail->storeAs('tutorials', $filename);
+            Storage::delete('tutorials/thumbnails/'.$filename);
+            $extension = $image->getClientOriginalExtension();
+            $filename  = 'tuto-thumbnail-' . time() . '.' . $extension;
+            $imgFile = Image::make($image->getRealPath());
+            $imgFile->backup();
+            $thubmnail = $imgFile->resize(270, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->encode();
+            Storage::put('/tutorials/thumbnails/'.$filename,$thubmnail);
         }
         $tutorial->title = $request->title;
         $tutorial->slug = Str::slug($request->title_en);

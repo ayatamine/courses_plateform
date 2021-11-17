@@ -11,9 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Resources\Course\CourseResource;
-use App\Http\Resources\Course\CourseCollection;
-
+use Image;
 class CourseController extends Controller
 {
     /**
@@ -48,10 +46,16 @@ class CourseController extends Controller
     public function store(CourseRequest $request)
     {
         $filename ='';
-        if($thumbnail = $request->file('thumbnail')){
-            $extension = $thumbnail->getClientOriginalExtension();
+        if($image = $request->file('thumbnail')){
+            $extension = $image->getClientOriginalExtension();
             $filename  = 'course-thumbnail-' . time() . '.' . $extension;
-            $path      = $thumbnail->storeAs('courses', $filename);
+            $imgFile = Image::make($image->getRealPath());
+            $imgFile->backup();
+            $thubmnail = $imgFile->resize(270, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->encode();
+            Storage::put('/courses/thumbnails/'.$filename,$thubmnail);
+
         }
         $course = Course::create([
             'title'=>$request->title,
@@ -141,11 +145,19 @@ class CourseController extends Controller
 
         $course = Course::whereSlug($slug)->first();
         $filename =$course->thumbnail;
-        if($thumbnail = $request->file('thumbnail')){
+
+        if($image = $request->file('thumbnail')){
             Storage::delete('courses/'.$filename);
-            $extension = $thumbnail->getClientOriginalExtension();
+            Storage::delete('courses/thumbnails/'.$filename);
+
+            $extension = $image->getClientOriginalExtension();
             $filename  = 'course-thumbnail-' . time() . '.' . $extension;
-            $path      = $thumbnail->storeAs('courses', $filename);
+            $imgFile = Image::make($image->getRealPath());
+            $imgFile->backup();
+            $thubmnail = $imgFile->resize(270, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->encode();
+            Storage::put('/courses/thumbnails/'.$filename,$thubmnail);
         }
         $course->title = $request->title;
         $course->slug = Str::slug($request->title_en);
