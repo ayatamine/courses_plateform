@@ -38,7 +38,7 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+//        return $request;
         $this->validate($request,[
             'content' =>'string|required|min:3',
             'commentable_type'=>'string|required',

@@ -10,7 +10,6 @@
 Click Here
 @endcomponent --}}
 <br>
-If you did not request a signup , no further action is required.
 
 Thanks,
 {{ config('app.name') }}

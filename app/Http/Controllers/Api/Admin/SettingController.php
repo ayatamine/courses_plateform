@@ -74,12 +74,18 @@ class SettingController extends Controller
     {
         $requestData = $request->all();
         $settings = Setting::first();
-        $filename ='';
+        $filename ='';$filename_ar ='';
         if($logo = $request->file('logo')){
             $extension = $logo->getClientOriginalExtension();
             $filename  = 'logo-' . time() . '.' . $extension;
             $path      = $logo->storeAs('settings', $filename);
             $requestData['logo'] = $filename;
+        }
+        if($logo_ar = $request->file('logo_ar')){
+            $extension = $logo_ar->getClientOriginalExtension();
+            $filename_ar  = 'logo-ar-' . time() . '.' . $extension;
+            $path      = $logo_ar->storeAs('settings', $filename_ar);
+            $requestData['logo_ar'] = $filename_ar;
         }
 
 

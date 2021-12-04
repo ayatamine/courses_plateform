@@ -24,6 +24,7 @@ class SettingResource extends ResourceCollection
                 "phone_number"=>$settings->phone_number,
                 "address"=>$settings->address,
                 "logo"=>$settings->logo,
+                "logo_ar"=>$settings->logo_ar,
                 "facebook_link"=>$settings->facebook_link,
                 "youtube_link"=>$settings->youtube_link,
                 "instagram_link"=>$settings->instagram_link,
