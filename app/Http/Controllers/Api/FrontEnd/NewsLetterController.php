@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\FrontEnd;
 
 use App\Http\Controllers\Controller;
 use App\Models\NewsLetterList;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class NewsLetterController extends Controller
 {
@@ -23,6 +25,16 @@ class NewsLetterController extends Controller
         NewsLetterList::create([
            'email'=>$request->email
         ]);
+        $settings = Setting::first();
+        try{
+          Mail::send('news_letter',$request,function($message) use( $settings){
+                  $message->to($settings->conact_email,$settings->site_name)
+                  ->subject('New Subscriber to newsletter ');
+          });
+        }
+        catch (\Exception $exception){
+            return response()->json('there is an error,please try later',500);
+        }
         return response([
             'messae'=>'Thanks for subscribing to our NewsLetter'
         ],201);

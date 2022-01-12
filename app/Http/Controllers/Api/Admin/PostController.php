@@ -19,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return  Post::with('tags')->with('category')->latest()->get();
+        return  Post::select(['id','category_id','title','title_en','slug','updated_at'])->with('tags:id,title,title_en')->with('category:id,name,name_en')->latest()->get();
     }
 
     /**

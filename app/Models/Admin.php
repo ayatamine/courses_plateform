@@ -54,4 +54,8 @@ class Admin extends Authenticatable
     public function getFullNameAttribute(){
         return $this->first_name.' '.$this->last_name;
     }
+    public function getPhotoAttribute($value){
+        return  asset('storage/profiles/'.$value);
+    }
+    protected $appends=['full_name'];
 }
