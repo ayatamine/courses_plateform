@@ -27,8 +27,8 @@ class NewsLetterController extends Controller
         ]);
         $settings = Setting::first();
         try{
-          Mail::send('news_letter',$request,function($message) use( $settings){
-                  $message->to($settings->conact_email,$settings->site_name)
+          Mail::send('emails.news_letter',$request,function($message) use( $settings){
+                  $message->to($settings->settings->conact_email,$settings->site_name)
                   ->subject('New Subscriber to newsletter ');
           });
         }
