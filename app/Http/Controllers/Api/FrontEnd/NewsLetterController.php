@@ -22,21 +22,27 @@ class NewsLetterController extends Controller
         $this->validate($request,[
             'email'=>'string|required|email|unique:users'
         ]);
+        $subscribed_in_list =NewsLetterList::whereEmail($request->email)->first();
+        if($subscribed_in_list){
+            return response([
+                'message'=>'already subscribed'
+            ],200);
+        }
         NewsLetterList::create([
-           'email'=>$request->email
+             'email'=>$request->email
         ]);
         $settings = Setting::first();
         try{
-          Mail::send('news_letter',['email'=>$request->email],function($message) use( $settings){
-                  $message->to($settings->settings->conact_email,$settings->settings->site_name)
-                  ->subject('New Subscriber to newsletter ');
+          Mail::send('emails.new_news_letter_subscriber',['email'=>$request->email],function($message) use( $settings){
+                  $message->to($settings->settings->contact_email)
+                  ->subject('New Subscriber to newsletter');
           });
         }
         catch (\Exception $exception){
-            return response()->json('there is an error,please try later',500);
+            return response()->json($exception,500);
         }
         return response([
-            'messae'=>'Thanks for subscribing to our NewsLetter'
+            'message'=>'Thanks for subscribing to our NewsLetter'
         ],201);
     }
 }
