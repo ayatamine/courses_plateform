@@ -71,7 +71,8 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::get('/tags/{id}/tutorials','TagController@tutorials');
         Route::get('/faqs','HomeController@faqs');
         Route::get('/achivements','HomeController@achivements');
-        Route::post('/subscribe_to_newslist','NewsLetterController');
+        Route::post('/subscribe_to_newslist','NewsLetterController@subscribe');
+        Route::post('/unsubscribe_from_newslist','NewsLetterController@unsubscribe');
 
         /** tutorials */
         Route::get('/tutorials','TutorialController@index');
@@ -100,6 +101,9 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::apiResource('/categories','CategoryController');
         Route::apiResource('/skills','SkillController');
         Route::apiResource('/faqs','FaqController');
+        Route::apiResource('/newsletterlist','NewsLetterListController');
+        Route::get('/statistics','HomeController@index');
+
     });
 
 });

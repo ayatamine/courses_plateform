@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return response()->json([
+            'users'=>DB::table('users')->count(),
+            'articles'=>DB::table('posts')->count(),
+            'newsletterlist'=>DB::table('news_letter_lists')->count(),
+            'courses'=>DB::table('courses')->count(),
+            'tutorials'=>DB::table('tutorials')->count(),
+            'projects'=>DB::table('projects')->count()
+        ],200);
     }
 }

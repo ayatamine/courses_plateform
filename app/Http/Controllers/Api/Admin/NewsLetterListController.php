@@ -15,7 +15,7 @@ class NewsLetterListController extends Controller
      */
     public function index()
     {
-        //
+        return NewsLetterList::latest()->paginate(10);
     }
 
     /**
