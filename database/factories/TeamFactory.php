@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TeamFactory extends Factory
@@ -22,9 +23,9 @@ class TeamFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->name,
-            'image'=>'avatar2.png',
-            'job_title'=>'developer',
+            'name' => $this->faker->unique()->company(),
+            'user_id' => User::factory(),
+            'personal_team' => true,
         ];
     }
 }

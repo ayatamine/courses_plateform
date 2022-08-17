@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+   @apply text-gray-800
+}
+#header .toggleColour img{
+  max-width:80% ;
+}
+.gradient {
+  /* background: linear-gradient(90deg, #d53369 0%, #daae51 100%); */
+  background: linear-gradient(90deg, #0167eb 20%,#75d1fffc 100%)
+}
+.bg-white.shadow #nav-content ul li a{
+  @apply text-black hover:text-main-hover-color 
+}
+.btn-style-two{
+    @apply md:mx-auto lg:mx-0  bg-btn-bg  text-lg font-semibold
+    text-white  rounded  px-8 shadow-lg 
+    hover:bg-darken-btn hover:text-white focus:outline-none
+    transition duration-300 ease-in-out
+}
+.btn-style-three{
+    @apply mx-auto lg:mx-0  bg-white text-lg font-normal text-gray-800
+      rounded my-6 py-3 px-8 shadow-lg 
+    hover:bg-btn-bg hover:text-white focus:outline-none
+    transition hover:scale-105 duration-300 ease-in-out
+}
+.btn-style-four{
+    @apply mx-auto lg:mx-0  bg-btn-bg text-lg font-normal text-white
+      rounded my-6 py-3 px-8  shadow-lg 
+      hover:bg-darken-btn  hover:animate-bounce focus:outline-none
+    transition-all duration-500 ease-in-out 
+}
+.parallax-img {
+  background-image: url("https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1955&q=80");
+}
+.section-header{
+  @apply my-8 md:my-4 text-3xl md:text-5xl font-bold leading-tight
+}
+.section-sub-header{
+  @apply text-lg md:text-xl  leading-tight 
+}
+#footer .social-icon{
+ @apply h-6 w-6 text-gray-300 hover:text-main-hover-color transition-colors duration-150 ease-linear hover:scale-105
+}
+
+/* blog page */
+.category-badge{
+ @apply  bg-white drop-shadow-lg p-2 text-gray-600 font-semibold rounded-md hover:drop-shadow-xl hover:bg-badge hover:text-white transition-all delay-75 duration-150 ease-in-out
+}
+.article-content,.article-content p{
+  color: #626262;line-height: 1.8rem;
+  font-size: 18px;
+}
+.article-share .social-icon{
+  @apply h-6 w-6 text-gray-600 hover:text-main-hover-color transition-colors duration-150 ease-linear hover:scale-105
+ }
+ @media(max-width:720px){
+  #nav-content{
+    @apply bg-white text-black
+  }
+  #nav-content li a{
+    @apply text-lg text-black hover:text-main-hover-color
+  }
+  #header .toggleColour img{
+    max-width:60% ;
+  }
+ }

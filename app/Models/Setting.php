@@ -18,11 +18,14 @@ class Setting extends Model
         return json_decode($value);
     }
     public function getLogoAttribute(){
-        $settings = $this->settings;
+        $settings = json_decode($this->settings);
         return asset('storage/settings/'.$settings->logo);
     }
     public function getLogoArAttribute(){
-        $settings = $this->settings;
+        $settings = json_decode($this->settings);
         return asset('storage/settings/'.$settings->logo_ar);
     }
+    protected $casts=[
+        'settings' =>'array'
+    ];
 }

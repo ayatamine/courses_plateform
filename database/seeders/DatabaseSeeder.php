@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Setting;
 use Database\Seeders\FaqSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\PostSeeder;
@@ -43,5 +44,24 @@ class DatabaseSeeder extends Seeder
         $this->call(ProjectSeeder::class);
         $this->call(QuestionSeeder::class);
         $this->call(ResponseSeeder::class);
+           Setting::create([
+            'settings' => json_encode([
+                "site_name"=>'coursatbarmaja',
+                "contact_email"=>'contact@coursatbarmaja.com',
+                "description"=>'Every developer need a real road to success in his career,
+                 because of that we are here to provide the best and the clean way to 
+                take you from beginner to middle to advanced developer.',
+                "phone_number"=>'+2134568745',
+                "address"=>'leghmara adrar',
+                "logo"=>'logo-1633967597.svg',
+                "logo_ar"=>'logo-1633967597.svg',
+                "facebook_link"=>'https://www.facebook.com/4arabdevelopers',
+                "youtube_link"=>'https://www.youtube.com/c/4arabdevelopers',
+                "instagram_link"=>'https://www.instagram.com/4arabdeveloper',
+                "linkedin_link"=>'linkedin.com',
+                "twitter_link"=>'twitter_link',
+                "telegram_link"=>'telegram_link',
+            ])
+        ]);
     }
 }
