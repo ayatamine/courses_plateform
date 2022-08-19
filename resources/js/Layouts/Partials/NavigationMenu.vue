@@ -1,5 +1,8 @@
 <script setup>
-import { defineProps } from 'vue';
+import { usePage } from '@inertiajs/inertia-vue3';
+
+
+const {site_name,logo,logo_ar} = {...(usePage().props.value.site_settings)} 
 </script>
 <template>
     <!--Nav-->
@@ -7,7 +10,7 @@ import { defineProps } from 'vue';
       <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
         <div class="pl-4 flex items-center">
           <a class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
-            <img src="img/logo-1633967597 (1).svg"  height="" width="" alt="logo"/>
+            <img :src="logo"  height="" width="" :alt="`${site_name} logo`"/>
           </a>
         </div>
         <!-- mobile menu -->
@@ -27,24 +30,24 @@ import { defineProps } from 'vue';
               <a class="inline-block py-2 px-4 text-white text-xl font-semibold no-underline" href="#">Home</a>
             </li>
             <li class="mr-3">
-              <a class="inline-block text-white text-xl no-underline hover:text-main-hover-color  py-2 px-4 transition-colors duration-150 ease-in-out" href="#">Courses</a>
+              <Link class="inline-block text-white text-xl no-underline hover:text-main-hover-color  py-2 px-4 transition-colors duration-150 ease-in-out" :href="route('courses')">Courses</Link>
             </li>
             <li class="mr-3">
-              <a class="inline-block text-white text-xl no-underline hover:text-main-hover-color  py-2 px-4 transition-colors duration-150 ease-in-out" href="#">Tutorials</a>
+              <Link class="inline-block text-white text-xl no-underline hover:text-main-hover-color  py-2 px-4 transition-colors duration-150 ease-in-out" :href="route('tutorials')">Tutorials</Link>
             </li>
             <li class="mr-3">
-              <a class="inline-block text-white text-xl no-underline hover:text-main-hover-color  py-2 px-4 transition-colors duration-150 ease-in-out" href="blog.html">Blog</a>
+              <Link class="inline-block text-white text-xl no-underline hover:text-main-hover-color  py-2 px-4 transition-colors duration-150 ease-in-out" :href="route('blog')">Blog</Link>
             </li>
             <li class="mr-3">
-              <a class="inline-block text-white text-xl no-underline hover:text-main-hover-color  py-2 px-4 transition-colors duration-150 ease-in-out" href="contact.html">Contact</a>
+              <Link class="inline-block text-white text-xl no-underline hover:text-main-hover-color  py-2 px-4 transition-colors duration-150 ease-in-out" :href="route('contact')">Contact</Link>
             </li>
           </ul>
-          <button
+          <Link :href="route('login')"
             id="navAction"
             class="btn-style-two py-2"
           >
             Login
-          </button>
+          </Link>
         </div>
       </div>
       <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />

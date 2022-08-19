@@ -80,5 +80,8 @@ class Course extends Model
                 ? $this->sections[0]->videos[0]->link
                 : $this->thumbnail;
     }
+    public function getThumbnailAttribute($value){
+        return asset('storage/courses/'.$value);
+    }
     protected $appends = ['preview_media','videos_duration'];
 }

@@ -21,12 +21,12 @@
                       Practical projects to get you ahead. we focus on real code to inspire your next project. Learning shouldn't be boring
                     </p>
                     <div class="flex justify-between items-center gap-4">
-                      <a href="" class="btn-style-four">
+                      <Link :href="route('login')" class="btn-style-four">
                         Get Started
-                      </a>
-                      <a href="" class="btn-style-three">
-                        All Articles
-                      </a>
+                      </Link>
+                      <Link :href="route('courses')" class="btn-style-three">
+                        All Courses
+                      </Link>
                     </div>
                   </div>
                   <!--Right Col-->
@@ -49,12 +49,12 @@
                          Enrich you knowledge by the regular tutorials, playlist and live coach. 
                     </p>
                     <div class="flex justify-between items-center gap-4">
-                      <a href="" class="btn-style-two py-3">
+                      <Link :href="route('login')" class="btn-style-two py-3">
                         Get Started
-                      </a>
-                      <a href="" class="btn-style-three">
-                        All Articles
-                      </a>
+                      </Link>
+                      <Link :href="route('tutorials')" class="btn-style-three">
+                        All Tutorials
+                      </Link>
                     </div>
                   </div>
                   <!--Right Col-->
@@ -77,13 +77,13 @@
                       You can read daily articles on different programming languages and some tricks and topics about the world of software engineering 
                     </p>
                     <div class="flex justify-between items-center gap-4">
-                      <a href="" class="btn-style-two py-3">
+                      <Link :href="route('login')" class="btn-style-two py-3">
                         Get Started
-                      </a>
-                      <a href="" class="btn-style-three">
+                      </Link>
+                      <Link :href="route('blog')" class="btn-style-three">
                         All Articles
-                      </a>
-                    </div>
+                      </Link>
+                    </div> 
                   </div>
                   <!--Right Col-->
                   <div class="w-full md:w-2/4 py-6 text-center">

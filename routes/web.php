@@ -34,7 +34,7 @@ Route::middleware([
     })->name('dashboard');
 });
     Route::get('/pages/{slug}','PagesController');
-    Route::get('/courses','CourseController@index');
+    Route::get('courses','CourseController@index')->name('courses');
     Route::get('/courses/{slug}','CourseController@show');
     Route::group(['prefix'=>'courses'],function(){
         Route::get('{course}/reviews','ReviewController@index');
@@ -45,8 +45,9 @@ Route::middleware([
     Route::get('/categories/{slug}/questions','CategoryController@questions');
 
 
-    Route::get('/posts','PostController@index');
-    Route::get('/posts/{slug}','PostController@show');
+    Route::get('/posts','PostController@index')->name('home.posts');
+    Route::get('/blog','PostController@index')->name('blog');
+    Route::get('/posts/{slug}','PostController@show')->name('blogs.show');
     Route::get('/posts/{slug}/related','PostController@relatedPosts');
     Route::group(['prefix'=>'posts'],function(){
         Route::get('{slug}/comments','CommentController@postComments');
@@ -58,15 +59,15 @@ Route::middleware([
     Route::get('/tags/{id}/tutorials','TagController@tutorials');
 
     Route::get('/faqs','HomeController@faqs');
-    Route::get('/achivements','HomeController@achivements');
+    Route::get('/achivements','HomeController@achivements')->name('home.achievements');
     Route::post('/subscribe_to_newslist','NewsLetterController@subscribe');
     Route::post('/unsubscribe_from_newslist','NewsLetterController@unsubscribe');
 
-    // /** tutorials */
-    // Route::get('/tutorials','TutorialController@index');
-    // Route::get('/tutorials/{slug}','TutorialController@show');
+    /** tutorials */
+    Route::get('/tutorials','TutorialController@index')->name('tutorials');
+    Route::get('/tutorials/{slug}','TutorialController@show');
 
-    Route::post('contact_us','HomeController@contact');
+    Route::post('contact_us','HomeController@contact')->name('contact');
 
 
 // inertia routes 

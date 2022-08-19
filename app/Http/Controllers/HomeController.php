@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Post;
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Course;
 use App\Models\Contact;
 use App\Models\Setting;
 use App\Models\Tutorial;
@@ -17,7 +18,14 @@ use App\Http\Resources\Tutorials\TutorialCollection;
 class HomeController extends Controller
 {
     public function index(){
-        return Inertia::render('Home/Index');
+        $courses = Course::select(['title','title_en','description','description_en','slug',"thumbnail"])
+                  ->withCount('students')
+                  ->latest()
+                  ->take(4)
+                  ->get();
+        return Inertia::render('Home/Index',[
+            'courses' => $courses
+        ]);
     }
     public function achivements(){
         return response()->json(

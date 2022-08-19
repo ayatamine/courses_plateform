@@ -29,4 +29,7 @@ class Tutorial extends Model
     {
         return $this->morphToMany(Category::class, 'categorable');
     }
+    public function getThumbnailAttribute($value){
+        return asset('storage/tutorials/'.$value);
+    }
 }

@@ -36,24 +36,14 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request)
     {
         $site_settings = Setting::firstOrFail();
-        $settings = json_decode($site_settings->settings);
+        $settings = $site_settings->settings;
+        $settings['logo'] = $site_settings->logo;
+        $settings['logo_ar'] = $site_settings->logo_ar;
         return array_merge(parent::share($request), [
             'ziggy' => function () {
                 return (new Ziggy)->toArray();
             },
-            'site_settings' =>[
-                "site_name"=>$settings->site_name,
-                "contact_email"=>$settings->contact_email,
-                "description"=>$settings->description,
-                "phone_number"=>$settings->phone_number,
-                "address"=>$settings->address,
-                "facebook_link"=>$settings->facebook_link,
-                "youtube_link"=>$settings->youtube_link,
-                "instagram_link"=>$settings->instagram_link,
-                "linkedin_link"=>$settings->linkedin_link ?? '',
-                "twitter_link"=>$settings->twitter_link ?? '',
-                "telegram_link"=>$settings->telegram_link ?? '',
-            ] 
+            'site_settings' =>$settings
         ]);
     }
 }

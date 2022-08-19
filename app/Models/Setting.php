@@ -14,16 +14,14 @@ class Setting extends Model
     public function getUpdatedAtAttribute($value){
           return Carbon::parse($value)->locale('fr_FR')->isoFormat('LL');
     }
-    public function getSettingsAttribute($value){
-        return json_decode($value);
-    }
+    // public function getSettingsAttribute($value){
+    //     return json_decode($value);
+    // }
     public function getLogoAttribute(){
-        $settings = json_decode($this->settings);
-        return asset('storage/settings/'.$settings->logo);
+        return asset('storage/settings/'.$this->settings['logo']);
     }
     public function getLogoArAttribute(){
-        $settings = json_decode($this->settings);
-        return asset('storage/settings/'.$settings->logo_ar);
+        return asset('storage/settings/'.$this->settings['logo_ar']);
     }
     protected $casts=[
         'settings' =>'array'
