@@ -26,7 +26,7 @@ class PostResource extends JsonResource
             'content'=>$this->content ,
             'content_en'=>$this->content_en,
             'content_description'=>htmlentities(Str::limit($this->content_en,100)),
-            'posted_at'=>Carbon::parse($this->created_at)->locale('fr_FR')->isoFormat('LL'),
+            'posted_at'=>Carbon::parse($this->created_at)->locale('en_US')->isoFormat('LL'),
             'author'=>$this->postable->full_name,
             'author_info'=>$this->postable->select(['bio','photo'])->first(),
             'tags'=>$this->tags,

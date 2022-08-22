@@ -45,18 +45,13 @@ Route::middleware([
     Route::get('/categories/{slug}/questions','CategoryController@questions');
 
 
-    Route::get('/posts','PostController@index')->name('home.posts');
-    Route::get('/blog','PostController@index')->name('blog');
     Route::get('/posts/{slug}','PostController@show')->name('blogs.show');
     Route::get('/posts/{slug}/related','PostController@relatedPosts');
     Route::group(['prefix'=>'posts'],function(){
         Route::get('{slug}/comments','CommentController@postComments');
         Route::post('{slug}/comments/new','CommentController@store');
     });
-    Route::get('/tags','TagController@index');
-    Route::get('/tags/{id}/posts','TagController@posts');
-    Route::get('/tags/{id}/courses','TagController@courses');
-    Route::get('/tags/{id}/tutorials','TagController@tutorials');
+    
 
     Route::get('/faqs','HomeController@faqs');
     Route::get('/achivements','HomeController@achivements')->name('home.achievements');
@@ -72,3 +67,24 @@ Route::middleware([
 
 // inertia routes 
 Route::get('/','HomeController@index')->name('home');
+Route::get('/articles','PostController@articles')->name('home.articles');
+Route::get('/blog','PostController@index')->name('blog');
+// tags filter and requests
+Route::get('/tags','TagController@index')->name('tags.list');
+Route::get('/tags/{id}/articles','TagController@articles')->name('tags.articles');
+Route::get('/tags/{id}/courses','TagController@courses')->name('tags.courses');
+Route::get('/tags/{id}/tutorials','TagController@tutorials')->name('tags.tutorials');
+
+
+
+
+
+
+
+
+
+Route::get('language/{language}', function ($language) {
+    Session()->put('locale', $language);
+
+    return redirect()->back();
+})->name('language');

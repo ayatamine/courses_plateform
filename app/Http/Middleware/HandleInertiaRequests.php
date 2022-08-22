@@ -43,7 +43,16 @@ class HandleInertiaRequests extends Middleware
             'ziggy' => function () {
                 return (new Ziggy)->toArray();
             },
-            'site_settings' =>$settings
+            'site_settings' =>$settings,
+            'locale' => function () {
+                return app()->getLocale();
+            },
+            'language' => function () {
+                if(!file_exists(resource_path('lang/'. app()->getLocale() .'/'.app()->getLocale() .'.json'))) {
+                    return ['name' => 'yes'];
+                    }
+                return json_decode(file_get_contents(resource_path('lang/'. app()->getLocale() .'/'.app()->getLocale() .'.json')), true);
+            },
         ]);
     }
 }

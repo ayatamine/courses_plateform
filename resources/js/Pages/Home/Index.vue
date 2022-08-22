@@ -12,6 +12,7 @@ defineProps({
 })
 </script>
 <template>
+      <Head title="Home" />
      <Hero />
      <WhyChooseUs />
      <Courses :courses="courses" />

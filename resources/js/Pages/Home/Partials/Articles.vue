@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue';
 const articles = ref([])
 onMounted(async function(){
      //get list of articles
-    let response = await fetch(route('home.posts',{limit:3}))
+    let response = await fetch(route('home.articles',{limit:3}))
     articles.value = (await response.json())
 })
 </script>

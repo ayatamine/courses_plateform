@@ -21,7 +21,7 @@ class PreviewPost extends JsonResource
             'thumbnail'=>asset('storage/posts/thumbnails/'.$this->thumbnail),
             'content'=>Str::limit($this->content,100) ,
             'content_en'=>Str::limit($this->content_en,100) ,
-            'posted_at'=>Carbon::parse($this->created_at)->locale('fr_FR')->isoFormat('Do MMM YY'),
+            'posted_at'=>Carbon::parse($this->created_at)->locale('en_US')->isoFormat('Do MMM YY'),
             'author'=>$this->postable->full_name,
             'tags'=>$this->tags,
             'category'=>$this->category

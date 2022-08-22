@@ -1,5 +1,6 @@
 import './bootstrap';
 
+import Vue from 'vue';
 import { createApp, h } from 'vue';
 import { createInertiaApp ,Link,Head} from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
@@ -20,6 +21,7 @@ createInertiaApp({
             .component('Head', Head)
             .component('Link', Link)
             .mixin({ methods: { route } })
+            .mixin(require('./base'))
             .mount(el);
     },
 });

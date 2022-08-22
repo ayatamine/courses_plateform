@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\Models\Tag;
 use App\Models\Post;
+use Inertia\Inertia;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,7 +16,23 @@ use App\Http\Resources\Posts\PostCollection;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(){
+        $articles = [];
+        $posts =QueryBuilder::for(Post::class)
+        ->allowedFilters(['title','title_en'])
+        ->allowedIncludes('tags')
+        ->latest();
+        if($limit = request()->query('limit')){
+            $articles =  new PostCollection($posts->paginate($limit));
+        }
+        $articles =  new PostCollection($posts->paginate(6));
+        return Inertia::render('Blog/Index',[
+            'articles' => $articles,
+            'tags' => Tag::all(),
+            'categories' => Category::take(8)->get()
+        ]);
+    }
+    public function articles()
     {
 
         $posts =QueryBuilder::for(Post::class)
@@ -27,6 +46,7 @@ class PostController extends Controller
         }
         return  new PostCollection($posts->paginate(6));
     }
+    
     public function show(Post $slug)
     {
          return new PostResource($slug);

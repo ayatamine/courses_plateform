@@ -12,9 +12,9 @@ use App\Http\Resources\Tutorials\TutorialResource;
 class TagController extends Controller
 {
     public function index(){
-        return Tag::all();
+        return response()->json(Tag::all());
     }
-    public function posts($tag_id){
+    public function articles($tag_id){
         $data = Tag::with('posts')->find($tag_id);
         return response()->json(new PostCollection($data->posts));
     }

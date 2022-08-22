@@ -1,8 +1,18 @@
 <script setup>
 import { usePage } from '@inertiajs/inertia-vue3';
+import { computed } from 'vue';
+import Icon from '../../Shared/Icon.vue';
 
 
 const {site_name,logo,logo_ar} = {...(usePage().props.value.site_settings)} 
+computed(()=>{
+        function selectable_locale() {
+            if(this.$page.locale == 'ar') {
+                return 'en';
+            }
+            return 'ar'
+        }
+})
 </script>
 <template>
     <!--Nav-->
@@ -41,12 +51,18 @@ const {site_name,logo,logo_ar} = {...(usePage().props.value.site_settings)}
             <li class="mr-3">
               <Link class="inline-block text-white text-xl no-underline hover:text-main-hover-color  py-2 px-4 transition-colors duration-150 ease-in-out" :href="route('contact')">Contact</Link>
             </li>
+            <li class="mr-3">
+              <Link class="inline-block text-white text-xl no-underline hover:text-main-hover-color  py-2 px-4 transition-colors duration-150 ease-in-out" 
+              :href="route('language', ['ar'])">
+              <Icon class="w-5 h-5" name="ar" />
+              </Link>
+            </li>
           </ul>
           <Link :href="route('login')"
             id="navAction"
             class="btn-style-two py-2"
           >
-            Login
+            Login {{__(name)}}
           </Link>
         </div>
       </div>

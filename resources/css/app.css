@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body{
    @apply text-gray-800
 }
@@ -11,6 +12,9 @@ body{
 .gradient {
   /* background: linear-gradient(90deg, #d53369 0%, #daae51 100%); */
   background: linear-gradient(90deg, #0167eb 20%,#75d1fffc 100%)
+}
+[type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select{
+  border: 0;
 }
 .bg-white.shadow #nav-content ul li a{
   @apply text-black hover:text-main-hover-color 
