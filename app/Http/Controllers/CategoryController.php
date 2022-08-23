@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Posts\PostCollection;
 use App\Http\Resources\Course\CourseResource;
 use App\Http\Resources\Tutorials\TutorialResource;
 
@@ -23,6 +24,10 @@ class CategoryController extends Controller
     {
         $tutorials = Category::whereSlug($category)->first()->tutorials;
         return response()->json(TutorialResource::collection($tutorials));
+    }
+    public function articles($category_slug){
+        $data = Category::with('articles')->whereSlug($category_slug)->first();
+        return response()->json(new PostCollection($data->articles));
     }
     public function questions($question)
     {

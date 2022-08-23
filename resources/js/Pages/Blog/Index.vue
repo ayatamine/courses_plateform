@@ -1,4 +1,7 @@
 <script>
+import throttle from 'lodash/throttle'
+import pickBy from 'lodash/pickBy'
+
 export default {
   props: ['articles','tags','categories'],
   data() {
@@ -6,19 +9,42 @@ export default {
       // counter only uses this.initialCounter as the initial value;
       // it is disconnected from future prop updates.
       articles: this.articles,
+      form:{
+        search:''
+      }
     }
   },
   methods:{
      updateArticles(payload){
        this.articles.data = JSON.parse(JSON.stringify(payload))
       // emit('update:articles',JSON.parse(JSON.stringify(payload)))
+    },
+    async filterByCateogry(category_slug){
+      let response =  await fetch(route('category.articles',{id:category_slug}))
+      // articles.value = (await response.json()).data
+      // console.log((await response.json()).data)
+      this.articles.data =(await response.json()).data 
     }
-  }
+    }
+    
+  // watch: {
+  //   form: {
+  //     handler:  throttle(async function() {
+  //       await this.$inertia.get(route('blog.search'),pickBy(this.form),{  
+  //         preserveState: true ,
+  //         onSuccess: function (data) { console.log(data.articles) },
+  //         onError: errors => {},
+  //         onFinish: visit => {},
+  //     })
+  //     }, 600),
+  //     deep: true,
+  //   },
+  // },
 }
 </script>
 <script setup>
 import { usePage } from '@inertiajs/inertia-vue3';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import GlobalSearchHeader from '../../Shared/GlobalSearchHeader.vue';
 import ArticlesList from './Partials/ArticlesList.vue';
 import RecentArticles from './Partials/RecentArticles.vue';
@@ -31,23 +57,23 @@ const site_settings = usePage().props.value.site_settings
 // })
 //the articles disposition
 const disposition = ref('grid');
-const emit =  defineEmits(['update:articles']);
+
 // filter articles by category name
-async function filterByCateogry(categorySlug){
-  console.log(categorySlug)
-  await fetch(route('categorie'))
-}
-// filter articles by tag name
-// function updateArticles(payload){
-//   // props.articles = JSON.parse(JSON.stringify(payload))
-//   emit('update:articles',JSON.parse(JSON.stringify(payload)))
+// async function filterByCateogry(categorySlug){
+//   console.log(categorySlug)
+//   await fetch(route('categorie'))
 // }
+onMounted(() =>{
+  window.scrollTo({  top: 500,
+  behavior: 'smooth'})
+})
+
 
 </script>
 <template>
     <Head title="Blog" />
      <!--search-->
-     <GlobalSearchHeader/>
+     <GlobalSearchHeader v-model="form.search" linkToSearch="blog" propertyToReload="articles"/>
      <!-- latest courses -->
     <section class="bg-body border-b py-24 px-12 md:px-24 text-gray-700">
       <!-- categories -->
@@ -83,8 +109,7 @@ async function filterByCateogry(categorySlug){
             </div>
   
           </div>
-          <ArticlesList :articles="articles.data" :disposition="disposition" />
-           
+          <ArticlesList  :articles="articles.data" :disposition="disposition" />
            <Pagination class="mt-6" :links="articles.meta.links" />
 
         </div>

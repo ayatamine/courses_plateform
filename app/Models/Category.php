@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Post;
 use App\Models\Course;
 use App\Models\Question;
 use App\Models\Tutorial;
@@ -23,6 +24,9 @@ class Category extends Model
     }
     public function Question(){
         return $this->morphedByMany(Question::class, 'categorable');
+    }
+    public function articles(){
+        return $this->hasMany(Post::class,'category_id');
     }
     protected $hidden=['created_at','updated_at'];
 }

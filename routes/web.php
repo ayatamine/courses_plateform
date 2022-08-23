@@ -39,7 +39,7 @@ Route::middleware([
     Route::group(['prefix'=>'courses'],function(){
         Route::get('{course}/reviews','ReviewController@index');
     });
-    Route::get('/categories','CategoryController@index');
+
     Route::get('/categories/{slug}/courses','CategoryController@courses');
     Route::get('/categories/{slug}/tutorials','CategoryController@tutorials');
     Route::get('/categories/{slug}/questions','CategoryController@questions');
@@ -69,13 +69,15 @@ Route::middleware([
 Route::get('/','HomeController@index')->name('home');
 Route::get('/articles','PostController@articles')->name('home.articles');
 Route::get('/blog','PostController@index')->name('blog');
+Route::get('/blog/search','PostController@search')->name('blog.search');
 // tags filter and requests
 Route::get('/tags','TagController@index')->name('tags.list');
-Route::get('/tags/{id}/articles','TagController@articles')->name('tags.articles');
+Route::get('/tags/{id}/articles','TagController@articles')->name('tag.articles');
 Route::get('/tags/{id}/courses','TagController@courses')->name('tags.courses');
 Route::get('/tags/{id}/tutorials','TagController@tutorials')->name('tags.tutorials');
-
-
+// caegories filter and requests
+Route::get('/categories','CategoryController@index');
+Route::get('/categories/{category_slug}/articles','CategoryController@articles')->name('category.articles');
 
 
 

@@ -5,7 +5,8 @@ defineProps({
 </script>
 <template>
 <!-- articles list -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 my-8 gap-5 md:gap-4 items-center">
+          <div v-if="articles.length"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 my-8 gap-5 md:gap-4 items-center">
             <div class="rounded bg-white overflow-hidden shadow-lg min-h-full"
             v-for="(article,i) in articles" :key="i">
               <img class="w-full max-h-70 hover:scale-105 hover:skew-y-3 transition-all duration-150 ease-in-out" :src="article.thumbnail" :alt="article.title_en">
@@ -26,4 +27,5 @@ defineProps({
               </div>
             </div>
           </div>
+          <div v-else class="p-3 bg-red-400 text-white font-semibold my-6 rounded">We are Sorry, No Result found.</div>
 </template>

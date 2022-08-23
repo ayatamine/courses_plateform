@@ -13,7 +13,7 @@ defineProps({
 const emit = defineEmits(['updateArticlesList'])
 
 async function filterByTag(tagId){
-  let response =  await fetch(route('tags.articles',{id:tagId}))
+  let response =  await fetch(route('tag.articles',{id:tagId}))
   articles.value = (await response.json()).data
   emit('updateArticlesList',articles.value)
 }

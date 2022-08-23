@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Resources\Posts\PostResource;
 use App\Http\Resources\Posts\PostCollection;
 
@@ -21,6 +22,7 @@ class PostController extends Controller
         $posts =QueryBuilder::for(Post::class)
         ->allowedFilters(['title','title_en'])
         ->allowedIncludes('tags')
+        ->filter(request()->only('search'))
         ->latest();
         if($limit = request()->query('limit')){
             $articles =  new PostCollection($posts->paginate($limit));
@@ -29,7 +31,7 @@ class PostController extends Controller
         return Inertia::render('Blog/Index',[
             'articles' => $articles,
             'tags' => Tag::all(),
-            'categories' => Category::take(8)->get()
+            'categories' => Category::take(8)->get(),
         ]);
     }
     public function articles()
@@ -46,7 +48,16 @@ class PostController extends Controller
         }
         return  new PostCollection($posts->paginate(6));
     }
-    
+    public function search(){
+        // dd(request()->all());
+        $posts = Post::filter(request()->only('search'))
+        ->paginate(10)
+        ->withQueryString();
+        return Redirect::back()->with([
+            'search' => request()->only('search'),
+            'articles'=> new PostCollection($posts)
+        ]);
+    }
     public function show(Post $slug)
     {
          return new PostResource($slug);

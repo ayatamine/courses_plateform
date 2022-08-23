@@ -36,4 +36,15 @@ class Post extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title_en', 'like', '%'.$search.'%')
+                    ->orwhere('title_en', 'like', '%'.$search.'%')
+                    ->orWhere('content', 'like', '%'.$search.'%')
+                    ->orWhere('content_en', 'like', '%'.$search.'%');
+            });
+        });
+    }
 }
