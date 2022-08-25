@@ -6,7 +6,7 @@ import { createInertiaApp ,Link,Head} from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 import DefaultLayout from './Layouts/Default';
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'coursatbarmaja';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

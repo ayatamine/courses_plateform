@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted,ref } from 'vue';
+import { useLoadOverlay } from '../../../LoadingDataIndicator';
 
 const articles = ref([]);
 onMounted(async function(){
@@ -8,27 +9,32 @@ onMounted(async function(){
     articles.value = (await response1.json()).data
 })
 defineProps({
-    tags:Array
+    tags:Array,
+    type:String,
 })
 const emit = defineEmits(['updateArticlesList'])
-
+const loadingOverlay = useLoadOverlay();
 async function filterByTag(tagId){
+  //  loading overlay
+  loadingOverlay.show()
+
   let response =  await fetch(route('tag.articles',{id:tagId}))
   articles.value = (await response.json()).data
+  loadingOverlay.hide()
   emit('updateArticlesList',articles.value)
 }
 </script>
 <template>
-<div class="w-full md:w-2/6 bg-white rounded p-5 text-gray-600">
+        <div class="w-full md:w-2/6 bg-white rounded p-5 text-gray-600">
           <!-- block -->
           <div class="recent-posts">
-            <h2 class="text-xl font-semibold px-">Recent Articles</h2>
+            <h2 class="text-xl font-semibold px-">{{(type == 'related' )? 'Related ' : 'Recent '}}Articles</h2>
             <hr class="my-6">
             <div class="my-3 p-4 text-left shadow-sm shadow-slate-800 rounded"
             v-for="(article,i) in articles" :key="i">
-              <a href="" class="font-semibold md:text-base mb-2 text-gray-600 hover:text-main-hover-color  capitalize">
+              <Link :href="route('blog.show',{slug:article.slug})" class="font-semibold md:text-base mb-2 text-gray-600 hover:text-main-hover-color  capitalize">
                 {{article.title_en}}
-              </a>
+              </Link>
               <div class="mt-1 flex flex-col justify-between items-start ">
                 <div class="inline-flex items-center text-base  text-gray-600 font-semibold">
                   <svg class="h-2 w-2 mr-2 text-main-hover-color"  viewBox="0 0 24 24"  fill="currentColor"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="12" cy="12" r="10" /></svg>                 
@@ -46,9 +52,10 @@ async function filterByTag(tagId){
             <h2 class="text-xl font-semibold ">Tags</h2>
             <hr class="my-6">
             <div class="categories  w-full p-4 grid grid-cols-3 justify-start items-center gap-2">
-              <a href="" class="category-badge  overflow-clip text-sm" 
+              <a class="category-badge  overflow-clip text-sm" 
               v-for="(tag,i) in tags" :key="i"
               @click.prevent="filterByTag(tag.id,$event)"
+              :href="`/tags/${tag.id}/articles`" 
               >#{{tag.title_en}}</a>
             </div>
           </div>

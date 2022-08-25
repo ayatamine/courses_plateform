@@ -46,5 +46,8 @@ class Post extends Model
                     ->orWhere('content_en', 'like', '%'.$search.'%');
             });
         });
+        $query->when($filters['sort'] ?? null, function ($query, $sortType) {
+            ($sortType =='newest') ? $query->orderBy('created_at','DESC') : $query->orderBy('created_at','ASC');
+        });
     }
 }

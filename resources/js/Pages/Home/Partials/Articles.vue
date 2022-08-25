@@ -44,7 +44,7 @@ onMounted(async function(){
               </div>
             </div>
             <div class="article-content mt-14 mb-8 text-left">
-              <a :href="route('blogs.show',{slug:article.slug})" class="article-title text-xl  font-bold  hover:text-main-hover-color">{{article.title_en.substring(0,52)+'...'}}</a>
+              <a :href="route('blog.show',{slug:article.slug})" class="article-title text-xl  font-bold  hover:text-main-hover-color">{{article.title_en.substring(0,52)+'...'}}</a>
               <div class="text-xl mt-6" v-html="article.content_en.substring(0,70)"></div>
             </div>
           </div>

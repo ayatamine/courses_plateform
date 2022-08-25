@@ -72,3 +72,6 @@ body{
     max-width:60% ;
   }
  }
+ .spinner-grow{vertical-align:-.125em;animation:.75s linear infinite _spinner-grow}
+ .spinner-grow{animation-duration:1.5s}
+@keyframes _spinner-grow{0%{transform:scale(0)}50%{opacity:1;transform:none}}

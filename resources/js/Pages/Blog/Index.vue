@@ -1,45 +1,44 @@
 <script>
 import throttle from 'lodash/throttle'
 import pickBy from 'lodash/pickBy'
+import {useLoadOverlay} from '../../LoadingDataIndicator.js'
+import { Inertia } from '@inertiajs/inertia';
 
 export default {
-  props: ['articles','tags','categories'],
+  props: ['articles','tags','categories','sort'],
   data() {
     return {
       // counter only uses this.initialCounter as the initial value;
       // it is disconnected from future prop updates.
       articles: this.articles,
       form:{
-        search:''
-      }
+        search:'',
+      },
+      loadingOverlay : useLoadOverlay()
     }
   },
   methods:{
      updateArticles(payload){
+      // load loadingOverlay
        this.articles.data = JSON.parse(JSON.stringify(payload))
       // emit('update:articles',JSON.parse(JSON.stringify(payload)))
     },
     async filterByCateogry(category_slug){
+      this.loadingOverlay.show()
       let response =  await fetch(route('category.articles',{id:category_slug}))
       // articles.value = (await response.json()).data
       // console.log((await response.json()).data)
       this.articles.data =(await response.json()).data 
+      this.loadingOverlay.hide()
+    },
+    async sortArticles(event){
+      const sortType = event.target.value;
+      Inertia.visit(route('blog',{sort:sortType}), {
+        only: ['articles','sort'],
+      })
     }
     }
     
-  // watch: {
-  //   form: {
-  //     handler:  throttle(async function() {
-  //       await this.$inertia.get(route('blog.search'),pickBy(this.form),{  
-  //         preserveState: true ,
-  //         onSuccess: function (data) { console.log(data.articles) },
-  //         onError: errors => {},
-  //         onFinish: visit => {},
-  //     })
-  //     }, 600),
-  //     deep: true,
-  //   },
-  // },
 }
 </script>
 <script setup>
@@ -66,12 +65,26 @@ const disposition = ref('grid');
 onMounted(() =>{
   window.scrollTo({  top: 500,
   behavior: 'smooth'})
+  
 })
 
 
 </script>
 <template>
-    <Head title="Blog" />
+    <Head >
+      <title>Blog</title>
+      <meta head-key="description" name="description" content="aravel , laravel 5.5 , laravel5.5 , laravel5.4 , laravel 5.4 ,vue js,nuxt js, شرح vue js,مهندس برمجيات ,لارافيل  , larafalt , مقالات لارافيل , laravel ماهو , شرح laravel , دورة لارافيل , php ,
+تعلم لارافيل , laravel شرح, php laravel شرح ,   laravel 8 , laravel 7,   full stack,  مسار تعلم back end ,   فرونت اند , front end  , reactjs , nextjs , vuejs
+,   كورسات برمجة شبكة عليمية عربية نهتم بانتاج ونشر الفيديوهات التعليميه والدروس التطبيقية باللغه العربية في مجال تصميم المواقع  و البرمجة بشكل عام وبرمجة المواقع بشكل خاص و  التصميم الجرافيك'"/>
+      <meta  name="keywords" content="yes,amine,eys" />
+      <meta inertia head-key="og:description" property="og:description" content="laravel , laravel 5.5 , laravel5.5 , laravel5.4 , laravel 5.4 ,vue js,nuxt js, شرح vue js,مهندس برمجيات ,لارافيل  , larafalt , مقالات لارافيل , laravel ماهو , شرح laravel , دورة لارافيل , php ,
+تعلم لارافيل , laravel شرح, php laravel شرح ,   laravel 8 , laravel 7,   full stack,  مسار تعلم back end ,   فرونت اند , front end  , reactjs , nextjs , vuejs
+,   موسات برمجة شبكة عليمية عربية نهتم بانتاج ونشر الفيديوهات التعليميه والدروس التطبيقية باللغه العربية في مجال تصميم المواقع  و البرمجة بشكل عام وبرمجة المواقع بشكل خاص و  التصميم الجرافيك'">
+      <meta inertia head-key="og:facebook-domain-verification" property="facebook-domain-verification" content="">
+      <meta inertia head-key="og:site_name" property="og:site_name" content="">
+      <meta inertia head-key="og:twitter_title" property="twitter:image" content="">
+    </Head>
+    
      <!--search-->
      <GlobalSearchHeader v-model="form.search" linkToSearch="blog" propertyToReload="articles"/>
      <!-- latest courses -->
@@ -79,9 +92,10 @@ onMounted(() =>{
       <!-- categories -->
       <h2 class="text-lg md:text-2xl font-bold">Filter By Categories</h2>
       <div class="categories w-full py-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 items-center gap-2 border-b-2 my-6 border-gray-600 ">
-          <a href="" class="category-badge " 
+          <a class="category-badge " 
           v-for="(category,i) in categories" :key="i"
           @click.prevent="filterByCateogry(category.slug)"
+          :href="`/category/${category.slug}/articles`" 
           >
           {{category.name_en}}
           </a>
@@ -102,7 +116,7 @@ onMounted(() =>{
                 <svg class="h-5 w-5 mt-2 md:mt-0"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <line x1="8" y1="6" x2="21" y2="6" />  <line x1="8" y1="12" x2="21" y2="12" />  <line x1="8" y1="18" x2="21" y2="18" />  <line x1="3" y1="6" x2="3.01" y2="6" />  <line x1="3" y1="12" x2="3.01" y2="12" />  <line x1="3" y1="18" x2="3.01" y2="18" /></svg>
               </a>
               <!-- order -->
-              <select name="" id="" class="p-2 px-3 bg-badge text-white rounded outline-none">
+              <select name="" id="" class="p-2 px-3 bg-badge text-white rounded outline-none " style="background-image:none" @change="sortArticles($event)" v-model="sort">
                 <option value="newest" class="bg-white text-gray-700 ">Newest</option>
                 <option value="oldest" class="bg-white text-gray-700 ">Oldest</option>
               </select>

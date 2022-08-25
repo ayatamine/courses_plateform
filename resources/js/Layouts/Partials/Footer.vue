@@ -1,7 +1,8 @@
 <script setup>
 import { usePage } from '@inertiajs/inertia-vue3';
 
-const site_settings = usePage().props.value.site_settings
+const {site_name,logo,logo_ar,description} = {...(usePage().props.value.site_settings)} 
+
 </script>
 <template>
 <!--Footer-->
@@ -22,11 +23,10 @@ const site_settings = usePage().props.value.site_settings
           <div class="w-full md:flex flex-col md:flex-row gap-3 py-6 mt-16">
             <div class=" mb-6 px-3 md:w-2/6">
               <a class="text-pink-600 no-underline hover:no-underline font-bold text-lg lg:text-4xl" href="#">
-                <img src="img/logo-1633967597 (1).svg" style="max-width:70%" height="" width="" alt="logo"/>
+                <img :src="logo"  height="" width="" :alt="`${site_name} logo`" style="max-width:70%" />
               </a>
               <div class="text-white text-lg my-5">
-                Every developer need a real road to success in his career, because of that we are here to provide the best and the 
-                clean way to take you from beginner to middle to advanced developer.
+                {{description}}
               </div>
               <!-- social icons -->
               <div class="flex justify-start gap-2">

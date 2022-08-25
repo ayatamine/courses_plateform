@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Carbon\Carbon;
 use App\Models\Tag;
 use App\Models\Post;
 use Inertia\Inertia;
@@ -18,20 +19,23 @@ use App\Http\Resources\Posts\PostCollection;
 class PostController extends Controller
 {
     public function index(){
+
         $articles = [];
         $posts =QueryBuilder::for(Post::class)
         ->allowedFilters(['title','title_en'])
         ->allowedIncludes('tags')
-        ->filter(request()->only('search'))
+        ->defaultSort('-created_at')
+        ->filter(request()->only('search','sort'))
         ->latest();
         if($limit = request()->query('limit')){
             $articles =  new PostCollection($posts->paginate($limit));
         }
-        $articles =  new PostCollection($posts->paginate(6));
+        $articles =  new PostCollection($posts->paginate(6));// dd(request()->all());
         return Inertia::render('Blog/Index',[
             'articles' => $articles,
             'tags' => Tag::all(),
             'categories' => Category::take(8)->get(),
+            'sort' =>request()->sort ?? 'newest'
         ]);
     }
     public function articles()
@@ -60,22 +64,25 @@ class PostController extends Controller
     }
     public function show(Post $slug)
     {
-         return new PostResource($slug);
+        return Inertia::render('Blog/Show',[
+            'article'=>new PostResource($slug)
+        ]);
     }
-    public function relatedPosts(Post $post)
+    public function relatedArticles(Post $post)
     {
-        $search =  $post->title;
+        dd($post);
         $posts = Post::with('postable')
-                ->where('title_en', 'like', '%'.$search.'%')
+                ->filter(request()->only('search'))
                 ->orWhere('category_id',$post->category_id)
-                ->limit(3)
+                ->limit(request()->limit)
                 ->get()
                 ->map(function($post){
                     return [
                         'title'=>$post->title,
                         'title_en'=>$post->title_en,
-                        'thumbnail'=>$post->thumbnail,
-                        'posted_by'=>$post->postable->full_name
+                        'author'=>$post->postable->full_name,
+                        'posted_at'=>Carbon::parse($this->created_at)->locale('en_US')->isoFormat('LL'),
+                        'category_id'=> Category::find($post->category_id)
                     ];
                 })
                 ;

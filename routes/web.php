@@ -45,8 +45,8 @@ Route::middleware([
     Route::get('/categories/{slug}/questions','CategoryController@questions');
 
 
-    Route::get('/posts/{slug}','PostController@show')->name('blogs.show');
-    Route::get('/posts/{slug}/related','PostController@relatedPosts');
+  
+   
     Route::group(['prefix'=>'posts'],function(){
         Route::get('{slug}/comments','CommentController@postComments');
         Route::post('{slug}/comments/new','CommentController@store');
@@ -69,7 +69,9 @@ Route::middleware([
 Route::get('/','HomeController@index')->name('home');
 Route::get('/articles','PostController@articles')->name('home.articles');
 Route::get('/blog','PostController@index')->name('blog');
+Route::get('/blog/{slug}','PostController@show')->name('blog.show');
 Route::get('/blog/search','PostController@search')->name('blog.search');
+Route::get('/articles/{slug}/related','PostController@relatedArticles')->name('article.related');
 // tags filter and requests
 Route::get('/tags','TagController@index')->name('tags.list');
 Route::get('/tags/{id}/articles','TagController@articles')->name('tag.articles');
