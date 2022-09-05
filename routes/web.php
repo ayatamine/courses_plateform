@@ -34,7 +34,10 @@ Route::middleware([
     })->name('dashboard');
 });
     Route::get('/pages/{slug}','PagesController');
-    Route::get('courses','CourseController@index')->name('courses');
+    // Route::get('courses','CourseController@index')->name('courses');
+    Route::get('courses',function(){
+        return Inertia::render('PageNotAddedYet',['title'=>'courses']);
+    })->name('courses');
     Route::get('/courses/{slug}','CourseController@show');
     Route::group(['prefix'=>'courses'],function(){
         Route::get('{course}/reviews','ReviewController@index');
@@ -47,19 +50,19 @@ Route::middleware([
 
   
    
-    Route::group(['prefix'=>'posts'],function(){
-        Route::get('{slug}/comments','CommentController@postComments');
-        Route::post('{slug}/comments/new','CommentController@store');
-    });
+  
     
 
     Route::get('/faqs','HomeController@faqs');
     Route::get('/achivements','HomeController@achivements')->name('home.achievements');
-    Route::post('/subscribe_to_newslist','NewsLetterController@subscribe');
+    Route::post('/subscribe_to_newslist','NewsLetterController@subscribe')->name('newsletter.subscribe');
     Route::post('/unsubscribe_from_newslist','NewsLetterController@unsubscribe');
 
     /** tutorials */
-    Route::get('/tutorials','TutorialController@index')->name('tutorials');
+    // Route::get('/tutorials','TutorialController@index')->name('tutorials');
+    Route::get('tutorials',function(){
+        return Inertia::render('PageNotAddedYet',['title'=>'tutrials']);
+    })->name('tutorials');
     Route::get('/tutorials/{slug}','TutorialController@show');
 
     Route::post('contact_us','HomeController@contact')->name('contact');
@@ -81,6 +84,11 @@ Route::get('/tags/{id}/tutorials','TagController@tutorials')->name('tags.tutoria
 Route::get('/categories','CategoryController@index');
 Route::get('/categories/{category_slug}/articles','CategoryController@articles')->name('category.articles');
 
+// comment of a blog article
+Route::group(['prefix'=>'articles'],function(){
+    Route::get('{slug}/comments','CommentController@articleComments')->name('article.comments');
+    Route::post('{slug}/comments/new','CommentController@store')->name('article.comments.add');
+});
 
 
 

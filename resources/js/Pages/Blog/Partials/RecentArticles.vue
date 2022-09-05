@@ -25,38 +25,40 @@ async function filterByTag(tagId){
 }
 </script>
 <template>
-        <div class="w-full md:w-2/6 bg-white rounded p-5 text-gray-600">
-          <!-- block -->
-          <div class="recent-posts">
-            <h2 class="text-xl font-semibold px-">{{(type == 'related' )? 'Related ' : 'Recent '}}Articles</h2>
-            <hr class="my-6">
-            <div class="my-3 p-4 text-left shadow-sm shadow-slate-800 rounded"
-            v-for="(article,i) in articles" :key="i">
-              <Link :href="route('blog.show',{slug:article.slug})" class="font-semibold md:text-base mb-2 text-gray-600 hover:text-main-hover-color  capitalize">
-                {{article.title_en}}
-              </Link>
-              <div class="mt-1 flex flex-col justify-between items-start ">
-                <div class="inline-flex items-center text-base  text-gray-600 font-semibold">
-                  <svg class="h-2 w-2 mr-2 text-main-hover-color"  viewBox="0 0 24 24"  fill="currentColor"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="12" cy="12" r="10" /></svg>                 
-                  {{article.category.name_en}}
-                </div>
-                <div class="inline-flex items-center text-base text-gray-500 font-normal">
-                  <svg class="h-3 w-3 mr-2 text-gray-400"  viewBox="0 0 24 24"  fill="currentColor"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="12" cy="12" r="10" /></svg>                   
-                  {{article.author}}, {{article.posted_at}}
+        <div class="relative w-full md:w-2/6  ">
+          <div class="sticky top-28 bg-white rounded p-5 text-gray-600">
+            <!-- block -->
+            <div class="recent-posts">
+              <h2 class="text-xl font-semibold px-">{{(type == 'related' )? 'Related ' : 'Recent '}}Articles</h2>
+              <hr class="my-6">
+              <div class="my-3 p-4 text-left shadow-sm shadow-slate-800 rounded"
+              v-for="(article,i) in articles" :key="i">
+                <Link :href="route('blog.show',{slug:article.slug})" class="font-semibold md:text-base mb-2 text-gray-600 hover:text-main-hover-color  capitalize">
+                  {{article.title_en}}
+                </Link>
+                <div class="mt-1 flex flex-col justify-between items-start ">
+                  <div class="inline-flex items-center text-sm  text-gray-600 font-semibold">
+                    <svg class="h-2 w-2 mr-2 text-main-hover-color"  viewBox="0 0 24 24"  fill="currentColor"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="12" cy="12" r="10" /></svg>
+                    {{article.category.name_en}}
+                  </div>
+                  <div class="inline-flex items-center text-sm text-gray-500 font-normal">
+                    <svg class="h-3 w-3 mr-2 text-gray-400"  viewBox="0 0 24 24"  fill="currentColor"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="12" cy="12" r="10" /></svg>
+                    {{article.author}}, {{article.posted_at}}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- block -->
-          <div class="recent-posts pt-12">
-            <h2 class="text-xl font-semibold ">Tags</h2>
-            <hr class="my-6">
-            <div class="categories  w-full p-4 grid grid-cols-3 justify-start items-center gap-2">
-              <a class="category-badge  overflow-clip text-sm" 
-              v-for="(tag,i) in tags" :key="i"
-              @click.prevent="filterByTag(tag.id,$event)"
-              :href="`/tags/${tag.id}/articles`" 
-              >#{{tag.title_en}}</a>
+            <!-- block -->
+            <div class="recent-posts pt-12" v-show="type !== 'related' ">
+              <h2 class="text-xl font-semibold ">Tags</h2>
+              <hr class="my-6">
+              <div class="categories  w-full p-4 grid grid-cols-3 justify-start items-center gap-2">
+                <a class="category-badge  overflow-clip text-sm"
+                v-for="(tag,i) in tags" :key="i"
+                @click.prevent="filterByTag(tag.id,$event)"
+                :href="`/tags/${tag.id}/articles`"
+                >#{{tag.title_en}}</a>
+              </div>
             </div>
           </div>
         </div>

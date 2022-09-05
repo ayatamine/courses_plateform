@@ -25,7 +25,7 @@ onMounted(async function(){
           v-for="(article,i) in articles.data" :key="i">
             <div class="article-details flex justify-between items-center ">
               <div class="text-xl md:text-3xl">
-                <span class=" rounded-full p-2" style="background-color:#b4e9f9">{{article.posted_at.slice(0,2)}}</span>
+                <span class=" rounded-full p-2 mx-2" style="background-color:#b4e9f9">{{article.posted_at.slice(0,2)}}</span>
                 <span>{{article.posted_at.slice(2)}}</span>
               </div>
               <div class="article-tags text-lg md:text-xl"
@@ -46,38 +46,6 @@ onMounted(async function(){
             <div class="article-content mt-14 mb-8 text-left">
               <a :href="route('blog.show',{slug:article.slug})" class="article-title text-xl  font-bold  hover:text-main-hover-color">{{article.title_en.substring(0,52)+'...'}}</a>
               <div class="text-xl mt-6" v-html="article.content_en.substring(0,70)"></div>
-            </div>
-          </div>
-          <!-- article block -->
-          <div class="p-10 bg-white rounded-md border border-blue-300">
-            <div class="article-details flex justify-between items-center ">
-              <div class="text-xl md:text-3xl">
-                <span class=" rounded-full px-3 py-2" style="background-color:#fbdddd">31</span>
-                <span>Janvier.22</span>
-              </div>
-              <div class="article-tags text-lg md:text-xl">
-                <span class="mx-1 hover:text-main-hover-color"><a href="">Laravel</a></span>|<span class="mx-1 hover:text-main-hover-color"><a href="" >PHP</a></span>
-              </div>
-            </div>
-            <div class="article-content mt-14 mb-8 text-left">
-              <a href="" class="article-title text-xl font-bold hover:text-main-hover-color">interface segregation principle</a>
-              <p class="text-lg mt-6">We should never force a client to implement an interface or</p>
-            </div>
-          </div>
-          <!-- article block -->
-          <div class="p-10 bg-white rounded-md border border-blue-300">
-            <div class="article-details flex justify-between items-center ">
-              <div class="text-xl md:text-3xl">
-                <span class=" rounded-full px-3 py-2" style="background-color:#facf8b">31</span>
-                <span>Janvier.22</span>
-              </div>
-              <div class="article-tags text-lg md:text-xl">
-                <span class="mx-1 hover:text-main-hover-color"><a href="">Laravel</a></span>|<span class="mx-1 hover:text-main-hover-color"><a href="" >PHP</a></span>
-              </div>
-            </div>
-            <div class="article-content mt-14 mb-8 text-left">
-              <a href="" class="article-title text-xl md:text-2xl font-bold hover:text-main-hover-color">interface segregation principle</a>
-              <p class="text-xl mt-6">We should never force a client to implement an interface or</p>
             </div>
           </div>
           <!-- all articles -->

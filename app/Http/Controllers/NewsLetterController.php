@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Models\NewsLetterList;
 use Illuminate\Support\Facades\Mail;
@@ -19,7 +20,7 @@ class NewsLetterController extends Controller
     {
 
         $this->validate($request,[
-            'email'=>'string|required|email|unique:users'
+            'email'=>'required|string|email|unique:users'
         ]);
         $subscribed_in_list =NewsLetterList::whereEmail($request->email)->first();
         if($subscribed_in_list){
@@ -33,7 +34,7 @@ class NewsLetterController extends Controller
         $settings = Setting::first();
         try{
           Mail::send('emails.new_news_letter_subscriber',['email'=>$request->email],function($message) use( $settings){
-                  $message->to($settings->settings->contact_email)
+                  $message->to($settings->settings['contact_email'])
                   ->subject('New Subscriber to newsletter');
           });
         }
@@ -53,7 +54,7 @@ class NewsLetterController extends Controller
         $subscribed_in_list =NewsLetterList::whereEmail($request->email)->first();
         if(!$subscribed_in_list){
             return response([
-                'message'=>'No email record founded according to the providing email'
+                'message'=>'No email record found according to the provided email'
             ],200);
         }
         $subscribed_in_list->delete();

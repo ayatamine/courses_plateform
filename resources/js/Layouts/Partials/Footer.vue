@@ -1,8 +1,25 @@
+
+<script>
+
+</script>
 <script setup>
-import { usePage } from '@inertiajs/inertia-vue3';
+import { usePage ,useForm} from '@inertiajs/inertia-vue3';
 
 const {site_name,logo,logo_ar,description} = {...(usePage().props.value.site_settings)} 
 
+const form = useForm({
+      email: null
+  })
+
+function subscribe(){
+      form.post(route('newsletter.subscribe'),{
+      preserveScroll: true,
+      onSuccess: (data) => {
+        console.log(data)
+        form.reset('email')
+      }
+})
+}
 </script>
 <template>
 <!--Footer-->
@@ -12,13 +29,15 @@ const {site_name,logo,logo_ar,description} = {...(usePage().props.value.site_set
         <div class="mb-4 text-center">
           <h1 class="section-header">Subscribe to know our<br>every single updates   </h1>
           <div class="w-full md:w-2/4 mx-auto my-4 md:my-8 flex">
-            <input type="search" name="q" class="w-4/6 p-3 md:p-4 text-base md:text-lg text-gray-700 bg-white  pr-10 focus:outline-none 
-            focus:text-gray-900" placeholder="What do you want to learn?" autocomplete="off">
-            <button type="submit" class="w-2/6 bg-btn-bg text-center text-white flex items-center justify-center px-1 md:px-5 text-base md:text-xl  ">
+            <input v-model="form.email" type="search" name="q" class="w-4/6 p-3 md:p-4 text-base md:text-lg text-gray-700 bg-white  pr-10 focus:outline-none 
+            focus:text-gray-900" placeholder="Please enteryour email" autocomplete="off">
+            <button type="submit" @click.prevent="subscribe" :disabled="form.processing"
+             class="w-2/6 bg-btn-bg text-center text-white flex items-center justify-center px-1 md:px-5 text-base md:text-xl  ">
               Subscribe Now
             </button>
         
           </div>
+          <div class="text-lg text-red-500 font-semibold my-4" v-if="form.errors.email">{{ form.errors.email }}</div>
         </div>
           <div class="w-full md:flex flex-col md:flex-row gap-3 py-6 mt-16">
             <div class=" mb-6 px-3 md:w-2/6">

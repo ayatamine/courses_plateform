@@ -5,6 +5,8 @@ import { createApp, h } from 'vue';
 import { createInertiaApp ,Link,Head} from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 import DefaultLayout from './Layouts/Default';
+import VueSocialSharing from 'vue-social-sharing'
+
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'coursatbarmaja';
 
@@ -22,6 +24,7 @@ createInertiaApp({
             .component('Link', Link)
             .mixin({ methods: { route } })
             .mixin(require('./base'))
+            .use(VueSocialSharing)
             .mount(el);
     },
 });

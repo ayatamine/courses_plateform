@@ -1255,6 +1255,10 @@ select {
 .relative {
   position: relative;
 }
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
 .inset-0 {
   top: 0px;
   right: 0px;
@@ -1279,6 +1283,15 @@ select {
 }
 .bottom-0 {
   bottom: 0px;
+}
+.top-20 {
+  top: 5rem;
+}
+.top-24 {
+  top: 6rem;
+}
+.top-28 {
+  top: 7rem;
 }
 .z-0 {
   z-index: 0;
@@ -1364,6 +1377,10 @@ select {
 .my-auto {
   margin-top: auto;
   margin-bottom: auto;
+}
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 .ml-3 {
   margin-left: 0.75rem;
@@ -2011,6 +2028,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(248 113 113 / var(--tw-bg-opacity));
 }
+.bg-blue-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity));
+}
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
 }
@@ -2159,6 +2180,10 @@ select {
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
+.py-36 {
+  padding-top: 9rem;
+  padding-bottom: 9rem;
+}
 .pt-6 {
   padding-top: 1.5rem;
 }
@@ -2206,6 +2231,9 @@ select {
 }
 .pl-4 {
   padding-left: 1rem;
+}
+.pl-16 {
+  padding-left: 4rem;
 }
 .text-left {
   text-align: left;
@@ -2420,6 +2448,10 @@ select {
   --tw-text-opacity: 1;
   color: rgb(255 86 114 / var(--tw-text-opacity));
 }
+.text-blue-700 {
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity));
+}
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -2446,6 +2478,9 @@ select {
 }
 .opacity-25 {
   opacity: 0.25;
+}
+.opacity-90 {
+  opacity: 0.9;
 }
 .shadow-sm {
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -2947,6 +2982,12 @@ body {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
+.hover\:fill-main-hover-color:hover {
+  fill: #ff5672;
+}
+.hover\:font-semibold:hover {
+  font-weight: 600;
+}
 .hover\:text-gray-500:hover {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
@@ -2986,6 +3027,9 @@ body {
 .hover\:no-underline:hover {
   -webkit-text-decoration-line: none;
           text-decoration-line: none;
+}
+.hover\:opacity-100:hover {
+  opacity: 1;
 }
 .focus\:z-10:focus {
   z-index: 10;
