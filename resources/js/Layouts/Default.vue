@@ -10,7 +10,7 @@ export default {
 <script setup>
 import NavigationMenu from './Partials/NavigationMenu.vue';
 import Footer from './Partials/Footer.vue';
-import LoadingoVerlay from '../Shared/LoadingoVerlay.vue';
+import LoadingOverlay from '../Shared/LoadingOverlay.vue';
 
 </script>
 <template>
@@ -33,7 +33,7 @@ import LoadingoVerlay from '../Shared/LoadingoVerlay.vue';
     <NavigationMenu/>
     <slot />
     <Footer />
-    <LoadingoVerlay />
+    <LoadingOverlay />
 
   </div>
 </template>
