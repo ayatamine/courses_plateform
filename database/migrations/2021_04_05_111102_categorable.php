@@ -29,6 +29,6 @@ class Categorable extends Migration
      */
     public function down()
     {
-       Schema::dropIfExists('categorable');
+       Schema::dropIfExists('categorables');
     }
 }

@@ -30,6 +30,6 @@ class Skillable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skillable');
+        Schema::dropIfExists('skillables');
     }
 }

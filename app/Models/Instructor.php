@@ -33,6 +33,7 @@ class Instructor extends Authenticatable
         'password',
         'bio','photo',
     ];
+    protected $appends=['full_name'];
 
     /**
      * The attributes that should be hidden for arrays.

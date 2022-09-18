@@ -67,6 +67,14 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('posts') => storage_path('app/public/posts'),
+        public_path('courses') => storage_path('app/public/courses'),
+        public_path('tutorials') => storage_path('app/public/tutorials'),
+        public_path('profiles') => storage_path('app/public/profiles'),
+        public_path('projects') => storage_path('app/public/projects'),
+        public_path('services') => storage_path('app/public/services'),
+        public_path('settings') => storage_path('app/public/settings'),
+        public_path('teams') => storage_path('app/public/teams'),
     ],
 
 ];

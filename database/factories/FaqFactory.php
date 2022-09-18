@@ -22,13 +22,12 @@ class FaqFactory extends Factory
      */
     public function definition()
     {
-        $question_en=$this->faker->text(200);
         return [
-            'question'=>'هنا محتوى السءال بالعربية '.rand(0,10).' ?',
-            'question_en'=>$question_en,
-            'answer'=>'هنا محتوى الجواب بالعربية '.rand(0,10).'?',
-            'answer_en'=>$question_en,
-            'slug'=>Str::slug($question_en)
+            'question'=>'هنا محتوى السءال بالعربية?',
+            'question_en'=>$this->faker->text(20),
+            'answer'=>'هنا محتوى الجواب بالعربية ?',
+            'answer_en'=>$this->faker->text(200),
+            'slug'=>$this->faker->slug(2)
         ];
     }
 }

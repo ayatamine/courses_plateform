@@ -16,15 +16,7 @@ class CourseSeeder extends Seeder
      */
     public function run()
     {
-        //create an admin
-        \App\Models\Admin::create([
-            'id'=>1,
-            'first_name'=>'ayat',
-            'last_name'=>'ahmed amine',
-            'bio'=>'Certified web instructor & Developer',
-            'email'=>'amine@admin.com',
-            'password'=>bcrypt('123admin*')
-        ]);
+       
         //create an instructor
         \App\Models\Instructor::create([
             'id'=>1,
