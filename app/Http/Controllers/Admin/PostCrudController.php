@@ -39,7 +39,7 @@ class PostCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('title');
+        // CRUD::column('title');
         CRUD::column('title_en');
         CRUD::addColumn([
             'name'      => 'thumbnail', // The db column name
@@ -57,19 +57,20 @@ class PostCrudController extends CrudController
         // CRUD::column('postable_id');
         // CRUD::column('postable_type');
         CRUD::addColumn([
-            'label'     => 'postable_id', // Table column heading
+            'label'     => 'Writer', // Table column heading
             'type'      => 'select',
             'name'      => 'postable_id', // the column that contains the ID of that connected entity;
             'key'       => 'id', // the column that contains the ID of that connected entity;
             'entity'    => 'postable', // the method that defines the relationship in your Model
             'attribute' => 'full_name', // foreign key attribute that is shown to user
         ]);
-        CRUD::column('keywords');
         CRUD::addColumn([
             'name'  => 'published',
             'label' => 'published',
             'type'  => 'boolean',  
         ]);
+        CRUD::column('keywords');
+      
 
         CRUD::column('created_at');
         CRUD::column('updated_at');
@@ -154,6 +155,7 @@ class PostCrudController extends CrudController
     protected function setupShowOperation()
     {
         $this->setupListOperation();
+        CRUD::column('title')->beforeColumn('title_en');
         CRUD::addColumn([
             'name' => 'content',
             'type' => 'textarea',

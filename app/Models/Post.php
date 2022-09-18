@@ -29,14 +29,9 @@ class Post extends Model
               $query->attributes['slug'] = Str::slug($query->title);
             //   $query->attributes['postable_id'] = auth('admin')->user()->id;
         });
-        // static::deleting(function($obj) {
-        //     if (count((array)$obj->media)) {
-        //         foreach ($obj->media as $file_path) {
-        //             \Storage::disk('real_estates')->delete($file_path);
-        //         }
-        //     }
-        //     \Storage::disk('real_estates/deed_photos')->delete($obj->deed_photo);
-        // });
+        static::deleting(function($obj) {
+            Storage::disk('local')->delete($obj->thumbnail);
+        });
     }
     public function root_comments(){
         return $this->morphMany(Comment::class,'commentable')

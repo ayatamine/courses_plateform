@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class NewsLetterList extends Model
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
     protected $fillable=['email'];
     protected $hidden=['updated_at'];
