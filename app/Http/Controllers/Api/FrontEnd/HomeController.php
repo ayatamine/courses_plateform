@@ -12,6 +12,7 @@ use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\ContactRequest;
 use App\Http\Resources\SettingResource;
 
 class HomeController extends Controller
@@ -34,15 +35,9 @@ class HomeController extends Controller
             ]
         );
     }
-    public function contact(Request $request){
+    public function contact(ContactRequest $request){
 
-          $this->validate($request,[
-             'first_name'=>'required|string|max:20',
-             'last_name'=>'required|string|max:20',
-             'message'=>'required|string|min:60',
-             'phone'=>'regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:14',
-             'email'=>'required|email'
-          ]);
+
           $contact = Contact::create([
               'first_name'=>$request->first_name,
               'last_name'=>$request->last_name,

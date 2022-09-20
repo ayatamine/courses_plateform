@@ -58,13 +58,6 @@ class Post extends Model
     }
     public function setThumbnailAttribute($value)
     {
-
-        // $attribute_name = "thumbnail";
-        // $disk = "public";
-        // $destination_path = "posts";
-
-        // $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
-
         $filename ='';
             $extension = $value->getClientOriginalExtension();
             $filename  = 'post-thumbnail-' . time() . '.' . $extension;
@@ -81,7 +74,6 @@ class Post extends Model
             Storage::put('posts/'.$filename,$postImage);
 
             $this->attributes['thumbnail'] = $filename;
-//            $path      = $thumbnail->storeAs('posts', $filename);
 
     }
     public function setWriterInputAttribute($value) {
@@ -90,6 +82,9 @@ class Post extends Model
     
     public function getWriterInputAttribute() {
         return $this['attributes']['postable_id'];
+    }
+    public function scopePublished($query){
+        return $query->wherePublished(true);
     }
     
 }

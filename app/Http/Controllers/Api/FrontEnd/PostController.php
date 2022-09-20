@@ -21,6 +21,7 @@ class PostController extends Controller
         ->allowedIncludes('tags')
         ->defaultSort('-created_at')
         ->allowedSorts('created_at')
+        ->published()
         ->latest();
         if($limit = request()->query('limit')){
             return  new PostCollection($posts->paginate($limit));
