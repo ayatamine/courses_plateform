@@ -28,7 +28,7 @@ class PostCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Post::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/post');
-        CRUD::setEntityNameStrings('post', 'posts');
+        CRUD::setEntityNameStrings('article', 'articles');
     }
 
     /**
@@ -101,7 +101,7 @@ class PostCrudController extends CrudController
             'label'     => 'Thumbnail', // Table column heading
             'type'      => 'upload',
             'upload'    => true,
-            'disk'      => 'local', 
+            // 'disk'      => 'local', 
         ]);
         
         CRUD::field('content')->type('summernote');

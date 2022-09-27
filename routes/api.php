@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +18,26 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::group(['middleware' => ['json.response']], function () {
     /* the auth section */
     Route::group(['namespace'=>'Api\Auth','prefix'=>'students'],function(){
         Route::post('login', 'UserController@login');
         Route::post('register','UserController@register');
-        Route::get('details','UserController@details');
-        Route::post('logout','UserController@logout');
-        Route::post('refresh-token', 'UserController@refreshTo')->name('refreshToken');
+        Route::group(['middleware'=>'auth:sanctum'],function(){
+            Route::get('details','UserController@details');
+            Route::post('logout','UserController@logout');
+            Route::post('refresh-token', 'UserController@refreshTo')->name('refreshToken');
+        });
+ 
+        Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+            $request->fulfill();
+        
+            return response()->json('ok');
+        })->middleware(['auth', 'signed'])->name('verification.verify');
+        Route::post('/email/verify','UserController@verifyEmail');
+        Route::post('/email/code/resend','UserController@resendVerification');
+
     });
     Route::group(['namespace'=>'Api\Auth','prefix'=>'instructors'],function(){
         Route::post('login', 'InstructorController@login');
@@ -32,13 +45,13 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::get('details','InstructorController@details');
         Route::get('logout','InstructorController@logout');
     });
-    Route::group(['namespace'=>'Api\Auth','prefix'=>'admin-cpx'],function(){
-        Route::post('login', 'AdminController@login');
-        Route::post('register','AdminController@register');
-        Route::get('details','AdminController@details');
-        Route::post('logout','AdminController@logout');
-        Route::post('refresh-token', 'AdminController@refreshTo')->name('refreshToken');
-    });
+    // Route::group(['namespace'=>'Api\Auth','prefix'=>'admin-cpx'],function(){
+    //     Route::post('login', 'AdminController@login');
+    //     Route::post('register','AdminController@register');
+    //     Route::get('details','AdminController@details');
+    //     Route::post('logout','AdminController@logout');
+    //     Route::post('refresh-token', 'AdminController@refreshTo')->name('refreshToken');
+    // });
     /**
     * courses api
     **/
@@ -62,7 +75,7 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::get('/posts/{slug}','PostController@show');
         Route::get('/posts/{slug}/related','PostController@relatedPosts');
         Route::group(['prefix'=>'posts'],function(){
-            Route::get('{slug}/comments','CommentController@postComments');
+            Route::get('{post}/comments','CommentController@postComments');
             Route::post('{slug}/comments/new','CommentController@store');
         });
         Route::get('/tags','TagController@index');
@@ -79,7 +92,6 @@ Route::group(['middleware' => ['json.response']], function () {
         Route::get('/tutorials/{slug}','TutorialController@show');
 
         Route::post('contact_us','HomeController@contact');
-        Route::get('/site_settings','SettingController');
     });
 
 
@@ -87,23 +99,23 @@ Route::group(['middleware' => ['json.response']], function () {
     ** the admin area
     */
 //    Route::group(['namespace'=>'Api\Admin','prefix'=>'admin-cpx','middleware' => ['auth:admin-api']],function(){
-    Route::group(['namespace'=>'Api\Admin','prefix'=>'admin-cpx'],function(){
-        Route::apiResource('/pages','PageController');
-        Route::get('/site_settings','SettingController@index');
-        Route::post('/update_site_settings','SettingController@update');
-        Route::apiResource('/courses','CourseController');
-        Route::post('/courses/{slug}','CourseController@update');
-        Route::apiResource('/tutorials','TutorialController');
-        Route::post('/tutorials/{slug}','TutorialController@update');
-        Route::apiResource('/posts','PostController');
-        Route::post('/posts/{slug}','PostController@update');
-        Route::apiResource('/tags','TagController');
-        Route::apiResource('/categories','CategoryController');
-        Route::apiResource('/skills','SkillController');
-        Route::apiResource('/faqs','FaqController');
-        Route::apiResource('/newsletterlist','NewsLetterListController');
-        Route::get('/statistics','HomeController@index');
+    // Route::group(['namespace'=>'Api\Admin','prefix'=>'admin-cpx'],function(){
+    //     Route::apiResource('/pages','PageController');
+    //     Route::get('/site_settings','SettingController@index');
+    //     Route::post('/update_site_settings','SettingController@update');
+    //     Route::apiResource('/courses','CourseController');
+    //     Route::post('/courses/{slug}','CourseController@update');
+    //     Route::apiResource('/tutorials','TutorialController');
+    //     Route::post('/tutorials/{slug}','TutorialController@update');
+    //     Route::apiResource('/posts','PostController');
+    //     Route::post('/posts/{slug}','PostController@update');
+    //     Route::apiResource('/tags','TagController');
+    //     Route::apiResource('/categories','CategoryController');
+    //     Route::apiResource('/skills','SkillController');
+    //     Route::apiResource('/faqs','FaqController');
+    //     Route::apiResource('/newsletterlist','NewsLetterListController');
+    //     Route::get('/statistics','HomeController@index');
 
-    });
+    // });
 
 });

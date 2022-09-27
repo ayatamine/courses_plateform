@@ -7,17 +7,22 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Video;
+use App\Traits\SelfRef;
 use App\Models\Instructor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Comment extends Model
 {
-    use HasFactory ;
+    use HasFactory ,SelfRef;
     protected $fillable=['content','commentable_id','commentable_type',
     'vote_number','parent_id','user_type','user_id'];
     public function commentable(){
         return $this->morphTo();
     }
+    // public function childrens(){
+    //     return $this->hasMany()
+    // }
     public function user(){
        switch ($this->user_type) {
            case 'instructor':

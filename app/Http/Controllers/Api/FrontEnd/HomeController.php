@@ -10,18 +10,27 @@ use App\Models\Setting;
 use App\Models\Tutorial;
 use App\Mail\ContactMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\ContactRequest;
-use App\Http\Resources\SettingResource;
 
 class HomeController extends Controller
 {
     public function __construct(){
-        $this->middleware('guest:api');
+        // $this->middleware('guest:api');
     }
     public function settings(){
-        return  new SettingResource(Setting::first());
+
+        $settings = DB::table('site_settings')
+                    ->get()
+                    ->pluck('value','key');
+         $settings['logo'] = asset('settings/'.$settings['logo']);
+         $settings['logo_ar'] = asset('settings/'.$settings['logo_ar']);
+         return $settings;
+
+        
+        
     }
     public function faqs(){
         return response()->json(Faq::latest()->get());

@@ -26,7 +26,7 @@ class Post extends Model
         parent::boot();
 
         static::saving(function ($query) {
-              $query->attributes['slug'] = Str::slug($query->title);
+              $query->attributes['slug'] = Str::slug($query->title_en);
             //   $query->attributes['postable_id'] = auth('admin')->user()->id;
         });
         static::deleting(function($obj) {

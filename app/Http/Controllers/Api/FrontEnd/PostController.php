@@ -38,7 +38,7 @@ class PostController extends Controller
         $posts = Post::with('postable')
                 ->where('title_en', 'like', '%'.$search.'%')
                 ->orWhere('category_id',$post->category_id)
-                ->limit(3)
+                ->limit(5)
                 ->get()
                 ->map(function($post){
                     return [
